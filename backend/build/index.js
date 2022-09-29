@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const mongoose_1 = __importDefault(require("mongoose"));
+const user_model_1 = __importDefault(require("./models/user.model"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 const port = process.env.PORT;
@@ -28,4 +29,6 @@ app.listen(port, () => __awaiter(void 0, void 0, void 0, function* () {
         console.error("No mongo uri was specified. Please add it to your local .env file under 'MONGO_URI'");
     }
     yield mongoose_1.default.connect(process.env.MONGO_URI);
+    let user = new user_model_1.default({ name: 'heroku!', password: "password" });
+    user.save();
 }));
