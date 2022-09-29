@@ -73,6 +73,7 @@ module.exports = {
       /* Other Colors Defined */
       'background-light-color': 'white',
       'background-dark-color': '#121212',
+      'background-dark-grey': '#21201E',
       'lightmode-text-color': '#121212',
       'darkmode-text-color':'white',
       'add-button-color': 'rgb(124, 201, 124)',
