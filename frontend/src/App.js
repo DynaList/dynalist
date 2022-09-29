@@ -3,6 +3,8 @@ import './App.css';
 import CurrentUserProvider from './contexts/CurrentUser'
 import Home from './components/Home';
 import NavBar from './components/Nav'
+import LoginForm from './users/LoginForm';
+import SignUpForm from './users/SignUpForm';
 
 function App() {
   return (
@@ -11,9 +13,9 @@ function App() {
           <NavBar />
           <Switch>
             <Route exact path="/" component={Home} />
-            {/* <Route exact path="/sign-up" component={SignUpForm} />
+            <Route exact path="/sign-up" component={SignUpForm} />
             <Route exact path="/login" component={LoginForm} />
-            <Route exact path="/places" component={PlaceIndex} />
+            {/* <Route exact path="/places" component={PlaceIndex} />
             <Route exact path="/places/new" component={NewPlaceForm} />
             <Route exact path="/places/:placeId" component={PlaceDetails} />
             <Route exact path="/places/:placeId/edit" component={EditPlaceForm} />

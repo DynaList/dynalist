@@ -22,7 +22,6 @@
   --comment-button-color: rgb(255, 179, 37);
 }
 
-
 button {
     height: 40px;
     border: 2px solid #7749CD;
@@ -35,7 +34,7 @@ button {
     background-color: white;
 }
 
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -72,4 +71,4 @@ button {
   to {
     transform: rotate(360deg);
   }
-}
+} */
