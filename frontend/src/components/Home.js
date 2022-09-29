@@ -44,6 +44,8 @@ function Home() {
                     Sign Up Now
                     </button>
                 </div>
+            </div>
+        </div>
     )
 }
 
