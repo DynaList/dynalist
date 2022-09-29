@@ -2,12 +2,13 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import './App.css';
 import CurrentUserProvider from './contexts/CurrentUser'
 import Home from './components/Home';
+import NavBar from './components/Nav'
 
 function App() {
   return (
     <CurrentUserProvider>
         <BrowserRouter>
-          {/* input Nav component here */}
+          <NavBar />
           <Switch>
             <Route exact path="/" component={Home} />
             {/* <Route exact path="/sign-up" component={SignUpForm} />
