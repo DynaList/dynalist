@@ -1,7 +1,10 @@
 import mongoose, { Schema } from "mongoose";
 
 const groupSchema = new mongoose.Schema({
-	name: String,
+	name: {
+		type: String,
+		require: true
+	},
 	lists: [{
 		type: Schema.Types.ObjectId,
 		ref: 'List'
