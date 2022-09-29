@@ -6,6 +6,7 @@ export interface UserDocument extends mongoose.Document {
   email: string;
   password: string;
   groups: string[];
+  comparePassword(givenPassword: string): Promise<boolean>;
 }
 
 const userSchema = new mongoose.Schema({
@@ -41,6 +42,14 @@ userSchema.pre<HydratedDocument<UserDocument>>("save", async function (next) {
 
   return next();
 });
+
+userSchema.methods.comparePassword = async function (
+  givenPassword: string
+): Promise<boolean> {
+  const user = this as UserDocument;
+
+  return bcrypt.compare(givenPassword, user.password).catch(() => false);
+};
 
 const UserModel = mongoose.model("User", userSchema);
 
