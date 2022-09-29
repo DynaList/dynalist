@@ -5,7 +5,7 @@ export interface UserDocument extends mongoose.Document {
   name: string;
   email: string;
   password: string;
-  groups: Types.DocumentArray<Types.ObjectId>;
+  groups?: Types.DocumentArray<Types.ObjectId>;
   comparePassword(givenPassword: string): Promise<boolean>;
 }
 
