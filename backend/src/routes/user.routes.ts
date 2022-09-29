@@ -1,9 +1,11 @@
-import { Router, Express, Request, Response } from "express";
+import { Router, Request, Response } from "express";
 
-const UserRaouter = Router();
+const userRouter = Router();
 
-UserRaouter.get("/", (req: Request, res: Response) => {
+userRouter.get("/", (req: Request, res: Response) => {
   res.json({ message: "User endpoint working" });
 });
 
-export default UserRaouter;
+userRouter.post("/new" /* middleware, handler (controller) */);
+
+export default userRouter;
