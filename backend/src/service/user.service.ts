@@ -7,8 +7,7 @@ export async function createUser(
 ) {
   try {
     const newUser = await UserModel.create(input);
-    console.log(newUser);
-    return newUser;
+    return newUser.toJSON();
   } catch (error: any) {
     throw new Error(error);
   }
