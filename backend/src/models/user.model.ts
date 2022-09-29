@@ -1,4 +1,4 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, HydratedDocument } from "mongoose";
 import bcrypt from "bcrypt";
 
 export interface UserDocument extends mongoose.Document {
@@ -30,9 +30,14 @@ const userSchema = new mongoose.Schema({
   ],
 });
 
-userSchema.pre("save", async function (next) {
-  const hash = await bcrypt.hash(this.password!, 10);
-  this.password = hash;
+userSchema.pre<HydratedDocument<UserDocument>>("save", async function (next) {
+  const user = this as UserDocument;
+
+  if (!user.isModified("password")) return next(); // Only run this function if the password was modified
+
+  const hash = await bcrypt.hash(user.password, 10);
+
+  user.password = hash;
 
   return next();
 });
