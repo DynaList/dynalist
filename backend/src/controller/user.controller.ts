@@ -10,7 +10,6 @@ export async function createUserHandler(
 ) {
   try {
     const newUser = await createUser(req.body);
-    console.log(newUser);
     return res.send(newUser);
   } catch (error: any) {
     log.error(error);

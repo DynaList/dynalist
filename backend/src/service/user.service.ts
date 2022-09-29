@@ -1,4 +1,5 @@
 import { DocumentDefinition } from "mongoose";
+import { omit } from "lodash";
 
 import UserModel, { UserDocument } from "../models/user.model";
 
@@ -7,7 +8,7 @@ export async function createUser(
 ) {
   try {
     const newUser = await UserModel.create(input);
-    return newUser.toJSON();
+    return omit(newUser.toJSON(), "password");
   } catch (error: any) {
     throw new Error(error);
   }
