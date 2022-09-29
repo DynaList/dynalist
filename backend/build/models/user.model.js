@@ -40,24 +40,40 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const userSchema = new mongoose_1.default.Schema({
     name: {
         type: String,
+        require: true,
     },
     email: {
         type: String,
+        require: true,
+        unique: true,
     },
     password: {
         type: String,
+        require: true,
     },
-    groups: [{
-            type: mongoose_1.Schema.Types.ObjectId,
-            ref: 'Group'
-        }]
+    groups: [
+        {
+            type: mongoose_1.Types.ObjectId,
+            ref: "Group",
+        },
+    ],
 });
-userSchema.pre('save', function (next) {
+userSchema.pre("save", function (next) {
     return __awaiter(this, void 0, void 0, function* () {
-        const hash = yield bcrypt_1.default.hash(this.password, 10);
-        this.password = hash;
+        const user = this;
+        if (!user.isModified("password"))
+            return next(); // Only run this function if the password was modified
+        const hash = yield bcrypt_1.default.hash(user.password, 10);
+        user.password = hash;
         return next();
     });
 });
-const UserModel = mongoose_1.default.model('User', userSchema);
+userSchema.methods.comparePassword = function (givenPassword) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const user = this;
+        return bcrypt_1.default.compare(givenPassword, user.password).catch(() => false);
+    });
+};
+const UserModel = mongoose_1.default.model("User", userSchema);
 exports.default = UserModel;
+//# sourceMappingURL=user.model.js.map

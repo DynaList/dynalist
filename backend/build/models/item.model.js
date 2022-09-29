@@ -9,3 +9,4 @@ const itemSchema = new mongoose_1.default.Schema({
 });
 const ItemModel = mongoose_1.default.model("Item", itemSchema);
 exports.default = ItemModel;
+//# sourceMappingURL=item.model.js.map

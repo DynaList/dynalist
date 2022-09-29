@@ -39,3 +39,4 @@ const listSchema = new mongoose_1.default.Schema({
 });
 const ListModel = mongoose_1.default.model('List', listSchema);
 exports.default = ListModel;
+//# sourceMappingURL=list.model.js.map
