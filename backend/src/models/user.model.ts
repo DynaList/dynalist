@@ -1,15 +1,15 @@
-import mongoose, { Schema, HydratedDocument } from "mongoose";
+import mongoose, { Types, HydratedDocument } from "mongoose";
 import bcrypt from "bcrypt";
 
 export interface UserDocument extends mongoose.Document {
   name: string;
   email: string;
   password: string;
-  groups: string[];
+  groups: Types.DocumentArray<Types.ObjectId>;
   comparePassword(givenPassword: string): Promise<boolean>;
 }
 
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema<UserDocument>({
   name: {
     type: String,
     require: true,
@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema({
   },
   groups: [
     {
-      type: Schema.Types.ObjectId,
+      type: Types.ObjectId,
       ref: "Group",
     },
   ],
