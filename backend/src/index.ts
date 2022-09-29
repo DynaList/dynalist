@@ -21,4 +21,7 @@ app.listen(port, async () => {
   }
 
   await mongoose.connect(process.env.MONGO_URI!)
+
+  let user = new UserModel({name: 'heroku!', password: "password"})
+  user.save()
 })
