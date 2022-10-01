@@ -1,29 +1,56 @@
-import mongoose, { Schema } from "mongoose";
-import bcrypt from 'bcrypt'
+import mongoose, { Types, HydratedDocument } from "mongoose";
+import bcrypt from "bcrypt";
 
-const userSchema = new mongoose.Schema({
-	name: {
-		type: String,
-	},
-	email: {
-		type: String,
-	},
-	password: {
-		type: String,
-	},
-	groups: [{
-		type: Schema.Types.ObjectId,
-		ref: 'Group'
-	}]
-})
+export interface UserDocument extends mongoose.Document {
+  name: string;
+  email: string;
+  password: string;
+  groups?: Types.DocumentArray<Types.ObjectId>;
+  comparePassword(givenPassword: string): Promise<boolean>;
+}
 
-userSchema.pre('save', async function (next) {
-	const hash = await bcrypt.hash(this.password!, 10)
-	this.password = hash
+const userSchema = new mongoose.Schema<UserDocument>({
+  name: {
+    type: String,
+    require: true,
+  },
+  email: {
+    type: String,
+    require: true,
+    unique: true,
+  },
+  password: {
+    type: String,
+    require: true,
+  },
+  groups: [
+    {
+      type: Types.ObjectId,
+      ref: "Group",
+    },
+  ],
+});
 
-	return next()
-})
+userSchema.pre<HydratedDocument<UserDocument>>("save", async function (next) {
+  const user = this as UserDocument;
 
-const UserModel = mongoose.model('User', userSchema)
+  if (!user.isModified("password")) return next(); // Only run this function if the password was modified
 
-export default UserModel
+  const hash = await bcrypt.hash(user.password, 10);
+
+  user.password = hash;
+
+  return next();
+});
+
+userSchema.methods.comparePassword = async function (
+  givenPassword: string
+): Promise<boolean> {
+  const user = this as UserDocument;
+
+  return bcrypt.compare(givenPassword, user.password).catch(() => false);
+};
+
+const UserModel = mongoose.model<UserDocument>("User", userSchema);
+
+export default UserModel;

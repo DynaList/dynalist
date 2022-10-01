@@ -6,6 +6,7 @@ import Navigation from './components/Nav'
 import LoginForm from './users/LoginForm';
 import SignUpForm from './users/SignUpForm';
 import Error404 from './components/Error404'
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path="/" component={Error404} /> */}
             <Route path='*' component={Error404} />
           </Switch>
+          <Footer/>
         </BrowserRouter>
       </CurrentUserProvider>
   )

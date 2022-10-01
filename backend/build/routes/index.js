@@ -12,18 +12,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const dotenv_1 = __importDefault(require("dotenv"));
-const logger_1 = __importDefault(require("./utils/logger"));
-const connect_1 = __importDefault(require("./utils/connect"));
-const routes_1 = __importDefault(require("./routes"));
-dotenv_1.default.config();
-const app = (0, express_1.default)();
-app.use(express_1.default.json());
-const port = process.env.PORT;
-app.listen(port, () => __awaiter(void 0, void 0, void 0, function* () {
-    logger_1.default.info(`App running at http://localhost:${port}`);
-    yield (0, connect_1.default)();
-    (0, routes_1.default)(app);
-}));
+const user_routes_1 = __importDefault(require("./user.routes"));
+function routes(app) {
+    app.get("/api/test", (req, res) => __awaiter(this, void 0, void 0, function* () {
+        res.status(200).send("Endpoint working");
+    }));
+    app.use("/api/user", user_routes_1.default);
+}
+exports.default = routes;
 //# sourceMappingURL=index.js.map
