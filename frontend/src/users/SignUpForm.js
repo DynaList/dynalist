@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { useHistory, useParams } from "react-router"
 
-function SignUpForm() {
+export default function SignUpForm() {
 
 	// const history = useHistory()
 
@@ -86,5 +86,3 @@ function SignUpForm() {
 		</main>
 	)
 }
-
-export default SignUpForm
