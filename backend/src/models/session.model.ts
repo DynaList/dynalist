@@ -1,4 +1,4 @@
-import mongoose, { HydratedDocument } from "mongoose";
+import mongoose from "mongoose";
 import { UserDocument } from "./user.model";
 
 export interface SchemaDocument extends mongoose.Document {
