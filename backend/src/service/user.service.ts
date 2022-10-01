@@ -14,8 +14,6 @@ export async function createUser(
   }
 }
 
-export async function findUser(
-  query: FilterQuery<Omit<UserDocument, "comparePassword">>
-) {
-  return UserModel.find(query).lean();
+export async function findAllUsers() {
+  return UserModel.find().lean();
 }
