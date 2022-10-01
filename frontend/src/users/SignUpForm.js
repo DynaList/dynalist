@@ -50,7 +50,7 @@ export default function SignUpForm() {
 							name="firstName"
 						/>
 					</div>
-					{/* <div className="">
+					<div className="">
 						<label htmlFor="lastName">Last Name</label>
 						<input
 							required
@@ -60,7 +60,7 @@ export default function SignUpForm() {
 							id="lastName"
 							name="lastName"
 						/>
-					</div> */}
+					</div>
 				</div>
 				<div className="">
 					<div className="">
