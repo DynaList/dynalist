@@ -6,7 +6,7 @@ export interface ListDocument extends mongoose.Document {
 	items: Types.DocumentArray<Types.ObjectId>;
 }
 
-const listSchema = new mongoose.Schema({
+const listSchema = new mongoose.Schema<ListDocument>({
 	name: {
 		type: String,
 		require: true

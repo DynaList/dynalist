@@ -8,7 +8,7 @@ export interface ItemDocument extends mongoose.Document {
 	image: string;
 }
 
-const itemSchema = new mongoose.Schema({
+const itemSchema = new mongoose.Schema<ItemDocument>({
 	name: {
 		type: String,
 		require: true
