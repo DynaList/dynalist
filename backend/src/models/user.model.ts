@@ -2,17 +2,27 @@ import mongoose, { Types, HydratedDocument } from "mongoose";
 import bcrypt from "bcrypt";
 
 export interface UserDocument extends mongoose.Document {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   password: string;
+  country: string;
+  street: string;
+  city: string;
+  state: string;
+  zip: string;
   groups?: Types.DocumentArray<Types.ObjectId>;
   comparePassword(givenPassword: string): Promise<boolean>;
 }
 
 const userSchema = new mongoose.Schema<UserDocument>({
-  name: {
+  firstName: {
     type: String,
     require: true,
+  },
+  lastName: {
+    type: String,
+    require: true
   },
   email: {
     type: String,
@@ -22,6 +32,21 @@ const userSchema = new mongoose.Schema<UserDocument>({
   password: {
     type: String,
     require: true,
+  },
+  country: {
+    type: String
+  },
+  street: {
+    type: String
+  },
+  city: {
+    type: String
+  },
+  state: {
+    type: String
+  },
+  zip: {
+    type: String
   },
   groups: [
     {
