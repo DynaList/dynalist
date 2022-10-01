@@ -7,9 +7,15 @@ export default function SignUpForm() {
 	const history = useHistory()
 
 	const [user, setUser] = useState({
-		name: '',
+		firstName: '',
+		lastName:'',
 		email: '',
-		password: ''
+		password: '',
+		country:'',
+		street:'',
+		city:'',
+		state:'',
+		zip:''
 	})
 
 	async function handleSubmit(e) {
