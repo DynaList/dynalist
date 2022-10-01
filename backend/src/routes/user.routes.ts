@@ -1,8 +1,5 @@
 import { Router, Request, Response } from "express";
-
 import { createUserHandler } from "../controller/user.controller";
-import UserModel from "../models/user.model";
-
 import { userSeedData } from "../utils/seedData";
 
 const userRouter = Router();
