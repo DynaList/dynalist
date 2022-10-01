@@ -17,12 +17,10 @@ function userSeedData(count: Number): Array<UserDocument> {
 		adjective = adjective.charAt(0).toUpperCase() + adjective.slice(1)
 		noun = noun.charAt(0).toUpperCase() + noun.slice(1)
 
-		// Name consists of a random adjective, a random noun, and a number between 0 and 1000
-		const name = adjective + noun + Math.floor(Math.random() * 1000)
-
 		// Make user document
 		const user = new UserModel({
-			name: name,
+			firstName: adjective,
+			lastName: noun,
 			email: 'seeded@gmail.com',
 			password: 'password'
 		})
