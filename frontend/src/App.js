@@ -19,10 +19,12 @@ function App() {
             <Route exact path="/sign-up" component={SignUpForm} />
             <Route exact path="/login" component={LoginForm} />
             <Route exact path="/dashboard" component={UserDashboard} />
-            {/* <Route exact path="/places/new" component={NewPlaceForm} />
-            <Route exact path="/places/:placeId" component={PlaceDetails} />
-            <Route exact path="/places/:placeId/edit" component={EditPlaceForm} />
-            <Route path="/" component={Error404} /> */}
+            {/* <Route exact path="/groups/new" component={NewPlaceForm} />
+            <Route exact path="/groups" component={UserGroups} />
+            <Route exact path="/groups/:groupId" component={UserGroupDetails} />
+            <Route exact path="/lists" component={UserLists} />
+            <Route exact path="/lists/:listId" component={UserListDetails} />
+            */}
             <Route path='*' component={Error404} />
           </Switch>
           <Footer/>
