@@ -11,7 +11,6 @@ function App() {
   return (
     <CurrentUserProvider>
         <BrowserRouter>
-          <Navigation />
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/sign-up" component={SignUpForm} />

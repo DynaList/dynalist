@@ -11,11 +11,11 @@ function Navigation() {
 
     let loginActions = (
         <div style={{alignContent: 'right'}}>
-            <button className=" w-1/8 bg-white text-gray-800 font-bold rounded py-4 px-8 shadow-lg uppercase tracking-wider">
+            {/* <button className=" w-1/8 bg-white text-gray-800 font-bold rounded py-4 px-8 shadow-lg uppercase tracking-wider">
                 <a href="#" onClick={() => history.push("/sign-up")}>
                     Sign Up
                 </a>
-            </button>
+            </button> */}
             <button className="w-1/8 bg-white text-gray-800 font-bold rounded py-4 px-8 shadow-lg uppercase tracking-wider">
                 <a href="#" onClick={() => history.push("/login")}>
                     Login
