@@ -1,49 +1,50 @@
 import { useState, useEffect } from "react"
-import { useHistory, useParams } from "react-router"
+import { useParams } from "react-router"
+import { useHistory } from "react-router-dom"
 
-function SignUpForm() {
+export default function SignUpForm() {
 
-	// const history = useHistory()
+	const history = useHistory()
 
-	// const [user, setUser] = useState({
-	// 	firstName: '',
-	// 	lastName: '',
-	// 	email: '',
-	// 	password: ''
-	// })
+	const [user, setUser] = useState({
+		name: '',
+		email: '',
+		password: ''
+	})
 
-	// async function handleSubmit(e) {
-	// 	e.preventDefault()
-    //     //fetch refering to backend user auth file- adjust when file created.
-	// 	await fetch(`${process.env.REACT_APP_SERVER_URL}users/`, {
-	// 		method: 'POST',
-	// 		headers: {
-	// 			'Content-Type': 'application/json'
-	// 		},
-	// 		body: JSON.stringify(user)
-	// 	})
+	async function handleSubmit(e) {
+		e.preventDefault()
+        // fetch refering to backend user auth file- adjust when file created.
+		console.log(`${process.env.REACT_APP_SERVER_URL}user/new`)
+		await fetch(`${process.env.REACT_APP_SERVER_URL}api/user/new`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(user)
+		})
 
-	// 	history.push(`/`)
-	// }
+		history.push(`/`)
+	}
 
 	return (
 		<main>
 			<h1>Sign Up</h1>
-			{/* <form onSubmit={handleSubmit}> */}
-            <form>
+			<form onSubmit={handleSubmit}>
+            {/* <form> */}
 				<div className="">
 					<div className="">
-						<label htmlFor="firstName">First Name</label>
+						<label htmlFor="firstName">User Name</label>
 						<input
 							required
-							value={user.firstName}
-							onChange={e => setUser({ ...user, firstName: e.target.value })}
+							value={user.name}
+							onChange={e => setUser({ ...user, name: e.target.value })}
 							className="form-control"
 							id="firstName"
 							name="firstName"
 						/>
 					</div>
-					<div className="">
+					{/* <div className="">
 						<label htmlFor="lastName">Last Name</label>
 						<input
 							required
@@ -53,7 +54,7 @@ function SignUpForm() {
 							id="lastName"
 							name="lastName"
 						/>
-					</div>
+					</div> */}
 				</div>
 				<div className="">
 					<div className="">
@@ -86,5 +87,3 @@ function SignUpForm() {
 		</main>
 	)
 }
-
-export default SignUpForm
