@@ -2,7 +2,7 @@ import { useContext, useState } from "react"
 import { useHistory } from "react-router"
 import { CurrentUser } from "../contexts/CurrentUser"
 
-function LoginForm() {
+export default function LoginForm() {
 
     // const history = useHistory()
 
@@ -80,5 +80,3 @@ function LoginForm() {
         </main>
     )
 }
-
-export default LoginForm
