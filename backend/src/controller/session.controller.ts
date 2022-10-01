@@ -4,7 +4,7 @@ import { validatePassword } from "../service/user.service";
 import { createSession } from "../service/session.service";
 import { signJwt } from "../utils/jwt.utils";
 
-export async function createUserHandler(req: Request, res: Response) {
+export async function createSessionHandler(req: Request, res: Response) {
   const user = await validatePassword(req.body);
 
   if (!user) return res.status(401).send("Invalid email or password.");
