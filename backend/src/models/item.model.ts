@@ -1,5 +1,13 @@
 import mongoose, { mongo } from "mongoose";
 
+export interface ItemDocument extends mongoose.Document {
+	name: string;
+	price: number;
+	link: string;
+	inStock: boolean;
+	image: string;
+}
+
 const itemSchema = new mongoose.Schema({
 	name: {
 		type: String,
