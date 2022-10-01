@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
 import { CreateUserInput } from "../schema/user.schema";
-import { createUser } from "../service/user.service";
+import { createUser, findAllUsers } from "../service/user.service";
 import log from "../utils/logger";
 
 export async function createUserHandler(
@@ -15,4 +15,10 @@ export async function createUserHandler(
     log.error(error);
     return res.status(409).send(error.message);
   }
+}
+
+export async function findAllUsersHandler(req: Request, res: Response) {
+  const user = await findAllUsers();
+
+  return res.send(user);
 }
