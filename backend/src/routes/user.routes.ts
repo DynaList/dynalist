@@ -13,10 +13,11 @@ userRouter.get("/", (req: Request, res: Response) => {
 
 userRouter.post("/new" /*, middleware, */, createUserHandler);
 
-userRouter.get('/seeddata', async (req, res) => {
-
+userRouter.get('/seeddata/:count', async (req, res) => {
   // Should authenticate this, check if the user is an admin and if not just show a 404 page
-  const data = userSeedData()
+  let count = req.params.count
+
+  const data = userSeedData(Number(count))
   const results = []
 
   // Save each item individually to make sure we get the middleware running
