@@ -1,10 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import FeaturesHome from "./FeaturesHome";
 import { getAllProducts } from "../api/walmartProducts";
 
 function Home() {
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await getAllProducts();
+  //       console.log(response);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, []);
   getAllProducts();
+
   return (
     <div>
       {/* <nav>
