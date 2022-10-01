@@ -7,7 +7,7 @@ export interface GroupDocument extends mongoose.Document {
 	admins: Types.DocumentArray<Types.ObjectId>;
 }
 
-const groupSchema = new mongoose.Schema({
+const groupSchema = new mongoose.Schema<GroupDocument>({
 	name: {
 		type: String,
 		require: true

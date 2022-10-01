@@ -27,6 +27,7 @@ const mongoose_1 = __importStar(require("mongoose"));
 const listSchema = new mongoose_1.default.Schema({
     name: {
         type: String,
+        require: true
     },
     group: {
         type: mongoose_1.Schema.Types.ObjectId,
