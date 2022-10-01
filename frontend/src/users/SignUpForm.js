@@ -30,7 +30,7 @@ export default function SignUpForm() {
 			body: JSON.stringify(user)
 		})
 
-		history.push(`/`)
+		history.push(`/dashboard`)
 	}
 
 	return (
@@ -88,7 +88,9 @@ export default function SignUpForm() {
 						/>
 					</div>
 				</div>
-				<input className="" type="submit" value="Sign Up" />
+				<button>
+					<input className="bg-gray-700" type="submit" value="Sign Up" />
+				</button>
 			</form>
 		</main>
 	)
