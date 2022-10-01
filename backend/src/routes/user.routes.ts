@@ -1,6 +1,9 @@
 import { Router, Request, Response } from "express";
-import { createUserHandler } from "../controller/user.controller";
 import { userSeedData } from "../utils/seedData";
+import {
+  createUserHandler,
+  findAllUsersHandler,
+} from "../controller/user.controller";
 
 const userRouter = Router();
 
@@ -28,5 +31,7 @@ userRouter.get('/seeddata/:count', async (req, res) => {
     results: results
   })
 })
+
+userRouter.get("/all", findAllUsersHandler);
 
 export default userRouter;
