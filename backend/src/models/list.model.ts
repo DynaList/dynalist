@@ -1,8 +1,15 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
+
+export interface ListDocument extends mongoose.Document {
+	name: string;
+	group: Types.ObjectId;
+	items: Types.DocumentArray<Types.ObjectId>;
+}
 
 const listSchema = new mongoose.Schema({
 	name: {
 		type: String,
+		require: true
 	},
 	group: {
 		type: Schema.Types.ObjectId,
