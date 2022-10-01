@@ -25,7 +25,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
 const groupSchema = new mongoose_1.default.Schema({
-    name: String,
+    name: {
+        type: String,
+        require: true
+    },
     lists: [{
             type: mongoose_1.Schema.Types.ObjectId,
             ref: 'List'

@@ -2,9 +2,10 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import './App.css';
 import CurrentUserProvider from './contexts/CurrentUser'
 import Home from './components/Home';
-import NavBar from './components/Nav'
+import Navigation from './components/Nav'
 import LoginForm from './users/LoginForm';
 import SignUpForm from './users/SignUpForm';
+import Error404 from './components/Error404'
 import Footer from './components/Footer';
 import UserDashboard from './users/UserDashboard';
 
@@ -13,7 +14,6 @@ function App() {
   return (
     <CurrentUserProvider>
         <BrowserRouter>
-          {/* <NavBar /> */}
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/sign-up" component={SignUpForm} />
@@ -23,6 +23,7 @@ function App() {
             <Route exact path="/places/:placeId" component={PlaceDetails} />
             <Route exact path="/places/:placeId/edit" component={EditPlaceForm} />
             <Route path="/" component={Error404} /> */}
+            <Route path='*' component={Error404} />
           </Switch>
           <Footer/>
         </BrowserRouter>
