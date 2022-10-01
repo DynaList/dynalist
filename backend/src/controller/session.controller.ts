@@ -14,8 +14,15 @@ export async function createUserHandler(req: Request, res: Response) {
   // Create an access token
   const accessToken = signJwt(
     { ...user, session: session._id },
-    { expiresIn: `${process.env.ACCESS_TOKEN_TTL}` } // 15 minutes
+    { expiresIn: `${process.env.ACCESS_TOKEN_TTL}` }
   );
+
   // Create a refresh token
+  const refreshToken = signJwt(
+    { ...user, session: session._id },
+    { expiresIn: `${process.env.REFRESH_TOKEN_TTL}` }
+  );
+
   // Return access and refresh tokens
+  return res.send({ accessToken, refreshToken });
 }
