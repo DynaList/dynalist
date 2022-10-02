@@ -1,11 +1,21 @@
+import { ObjectId } from "mongoose";
 import GroupModel, { GroupDocument } from "../models/group.model";
+import log from "../utils/logger";
 
 export async function createGroup(input: GroupDocument) {
 	try {
 		const newGroup = await GroupModel.create(input)
 		return newGroup.toJSON()
+	} catch (error: any) {
+		throw new Error(error)
 	}
-	catch (error: any) {
+}
+
+export async function findGroup(id: String): Promise<GroupDocument> {
+	try {
+		const group = await GroupModel.findById(id).exec()
+		return group!
+	} catch (error: any) {
 		throw new Error(error)
 	}
 }

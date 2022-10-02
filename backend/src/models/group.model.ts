@@ -28,6 +28,12 @@ const groupSchema = new mongoose.Schema<GroupDocument>({
 	}]
 })
 
+groupSchema.methods.addMember = async function (userId: Types.ObjectId) {
+	const group = this as GroupDocument
+
+	group.members.push(userId)
+}
+
 const GroupModel = mongoose.model('Group', groupSchema)
 
 export default GroupModel
