@@ -2,6 +2,7 @@ import { Express, Request, Response } from "express";
 
 import userRouter from "./user.routes";
 import sessionRouter from "./session.routes";
+import groupRouter from "./group.routes";
 
 function routes(app: Express) {
   app.get("/api/test", async (req: Request, res: Response) => {
@@ -10,6 +11,7 @@ function routes(app: Express) {
 
   app.use("/api/user", userRouter);
   app.use("/api/sessions", sessionRouter);
+  app.use("/api/groups", groupRouter)
 }
 
 export default routes;
