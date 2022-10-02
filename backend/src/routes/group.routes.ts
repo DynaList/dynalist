@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createGroupHandler } from "../controller/group.controller";
+import { createGroupHandler, findAllGroupsHandler } from "../controller/group.controller";
 
 const groupRouter = Router()
 
@@ -8,5 +8,7 @@ groupRouter.get('/', (req, res) => {
 })
 
 groupRouter.post('/new', createGroupHandler)
+
+groupRouter.get('/all', findAllGroupsHandler)
 
 export default groupRouter

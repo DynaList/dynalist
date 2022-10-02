@@ -1,10 +1,12 @@
 import mongoose, { Schema, Types } from "mongoose";
+import { ListDocument } from "./list.model";
+import { UserDocument } from "./user.model";
 
 export interface GroupDocument extends mongoose.Document {
 	name: string;
-	lists: Types.DocumentArray<Types.ObjectId>;
-	members: Types.DocumentArray<Types.ObjectId>;
-	admins: Types.DocumentArray<Types.ObjectId>;
+	lists: Array<ListDocument["_id"]>;
+	members: Array<UserDocument["_id"]>;
+	admins: Array<UserDocument["_id"]>;
 }
 
 const groupSchema = new mongoose.Schema<GroupDocument>({

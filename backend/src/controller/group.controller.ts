@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { createGroup } from "../service/group.service";
+import { createGroup, findAllGroups } from "../service/group.service";
 import log from "../utils/logger";
 
 export async function createGroupHandler(req: Request, res: Response) {
@@ -11,4 +11,10 @@ export async function createGroupHandler(req: Request, res: Response) {
 		log.error(error)
 		return res.status(409).send(error.message)
 	}
+}
+
+export async function findAllGroupsHandler(req: Request, res: Response) {
+	const groups = await findAllGroups()
+
+	return res.send(groups)
 }

@@ -9,3 +9,7 @@ export async function createGroup(input: GroupDocument) {
 		throw new Error(error)
 	}
 }
+
+export async function findAllGroups() {
+	return GroupModel.find().populate('members')
+}
