@@ -12,7 +12,7 @@ function Error404() {
         <div>
             <section className="flex items-center h-screen p-16 dark:text-gray-100">
                 <div className="container flex flex-col items-center justify-center px-5 mx-auto my-8">
-                    <img className= "" src="./images/logo/icons8-kawaii-dinosaur-100.png" ></img>
+                    <img src="./images/logo/icons8-kawaii-dinosaur-100.png" ></img>
                     <div className="max-w-xl text-center">
                         <h2 className="my-8 font-extrabold text-3xl dark:text-gray-100">
                             <span className="sr-only">Error</span>404: PAGE NOT FOUND
