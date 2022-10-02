@@ -25,11 +25,10 @@ function classNames(...classes) {
 
 export default function UserNav() {
   return (
-    <>
       <div className="min-h-full">
         <Disclosure as="nav" className="bg-background-dark-color">
           {({ open }) => (
-            <>
+            <div>
               <div className="mx-auto max-w-9xl px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
                   <div className="flex items-center">
@@ -172,10 +171,9 @@ export default function UserNav() {
                   </div>
                 </div>
               </Disclosure.Panel>
-            </>
+            </div>
           )}
         </Disclosure>  
       </div>
-    </>
   )
 }
