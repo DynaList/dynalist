@@ -11,5 +11,17 @@ export async function createGroup(input: GroupDocument) {
 }
 
 export async function findAllGroups() {
-	return GroupModel.find().populate('members')
+	return GroupModel.find()
+	.populate({
+		path: 'lists',
+		select: 'name'
+	})
+	.populate({
+		path: 'members',
+		select: 'name'
+	})
+	.populate({
+		path: 'admins',
+		select: 'name'
+	})
 }
