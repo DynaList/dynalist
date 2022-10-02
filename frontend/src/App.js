@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import './App.css';
 import CurrentUserProvider from './contexts/CurrentUser'
 import Home from './components/Home';
-import Navigation from './components/Nav'
 import LoginForm from './users/LoginForm';
 import SignUpForm from './users/SignUpForm';
 import Error404 from './components/Error404'
