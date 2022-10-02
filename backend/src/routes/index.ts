@@ -9,7 +9,7 @@ function routes(app: Express) {
     res.status(200).send("Endpoint working");
   });
 
-  app.use("/api/user", userRouter);
+  app.use("/api/users", userRouter);
   app.use("/api/sessions", sessionRouter);
   app.use("/api/groups", groupRouter)
 }

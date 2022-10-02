@@ -15,8 +15,7 @@ export default function SignUpForm() {
 	async function handleSubmit(e) {
 		e.preventDefault()
         // fetch refering to backend user auth file- adjust when file created.
-		console.log(`${process.env.REACT_APP_SERVER_URL}user/new`)
-		await fetch(`${process.env.REACT_APP_SERVER_URL}api/user/new`, {
+		await fetch(`${process.env.REACT_APP_SERVER_URL}api/users/new`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -24,7 +23,7 @@ export default function SignUpForm() {
 			body: JSON.stringify(user)
 		})
 
-		history.push(`/`)
+		history.push(`/dashboard`)
 	}
 
 	return (
