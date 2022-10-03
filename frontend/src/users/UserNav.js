@@ -29,9 +29,9 @@ const userNavigation = [
 //         email: '',
 //         password: ''
 //     })
-    
+
 //   e.preventDefault()
-  
+
 //   const response = await fetch(`${process.env.REACT_APP_SERVER_URL}api/sessions`, {
 //       method: 'DELETE',
 //       headers: {
@@ -57,9 +57,9 @@ function classNames(...classes) {
 }
 
 export default function UserNav() {
-  const history = useHistory()
+  const history = useHistory();
 
-  const { currentUser } = useContext(CurrentUser)
+  const { currentUser } = useContext(CurrentUser);
 
   return (
     <div className="min-h-full">
@@ -92,31 +92,9 @@ export default function UserNav() {
                           )}
                           aria-current={item.current ? "page" : undefined}
                         >
-<<<<<<< HEAD
                           {item.name}
                         </a>
                       ))}
-=======
-                          <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                            {userNavigation.map((item) => (
-                              <Menu.Item key={item.name}>
-                                {({ active }) => (
-                                  <a
-                                    href={item.href}
-                                    className={classNames(
-                                      active ? 'bg-gray-100' : '',
-                                      'block px-4 py-2 text-sm text-gray-700'
-                                    )}
-                                  >
-                                    {item.name}
-                                  </a>
-                                )}
-                              </Menu.Item>
-                            ))}
-                          </Menu.Items>
-                        </Transition>
-                      </Menu>
->>>>>>> da6ca768a2560144f08770e50ec9bf56e7a22fc3
                     </div>
                   </div>
                 </div>
@@ -153,7 +131,7 @@ export default function UserNav() {
                       >
                         <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                           {userNavigation.map((item) => (
-                            <Menu.Item onClick={handleSubmit} key={item.name}>
+                            <Menu.Item key={item.name}>
                               {({ active }) => (
                                 <a
                                   href={item.href}
