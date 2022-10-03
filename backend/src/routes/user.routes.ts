@@ -1,4 +1,7 @@
 import { Router, Request, Response } from "express";
+
+import validate from "../middleware/validateResource";
+import { createUserSchema } from "../schema/user.schema";
 import {
   createUserHandler,
   findAllUsersHandler,
@@ -11,7 +14,7 @@ userRouter.get("/", (req: Request, res: Response) => {
   res.json({ message: "User endpoint working" });
 });
 
-userRouter.post("/new" /*, middleware, */, createUserHandler);
+userRouter.post("/new", validate(createUserSchema), createUserHandler);
 
 userRouter.get('/seeddata/:count', seedUsersHandler)
 
