@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createGroupHandler, findAllGroupsHandler, findGroupHandler } from "../controller/group.controller";
+import { createGroupHandler, deleteGroupHandler, editGroupHandler, findAllGroupsHandler, findGroupHandler } from "../controller/group.controller";
 
 const groupRouter = Router()
 
@@ -16,5 +16,11 @@ groupRouter.post('/new', createGroupHandler)
 
 // get one
 groupRouter.get('/:id', findGroupHandler)
+
+// edit one
+groupRouter.put('/:id', editGroupHandler)
+
+// delete one
+groupRouter.delete('/:id', deleteGroupHandler)
 
 export default groupRouter

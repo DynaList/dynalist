@@ -10,23 +10,29 @@ export interface GroupDocument extends mongoose.Document {
 }
 
 const groupSchema = new mongoose.Schema<GroupDocument>({
-	name: {
-		type: String,
-		require: true
-	},
-	lists: [{
-		type: Schema.Types.ObjectId,
-		ref: 'List'
-	}],
-	members: [{
-		type: Schema.Types.ObjectId,
-		ref: 'User'
-	}],
-	admins: [{
-		type: Schema.Types.ObjectId,
-		ref: 'User'
-	}]
-})
+  name: {
+    type: String,
+    require: true,
+  },
+  lists: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "List",
+    },
+  ],
+  members: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
+  admins: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
+});
 
 groupSchema.methods.addMember = async function (userId: Types.ObjectId) {
 	const group = this as GroupDocument
@@ -34,6 +40,6 @@ groupSchema.methods.addMember = async function (userId: Types.ObjectId) {
 	group.members.push(userId)
 }
 
-const GroupModel = mongoose.model('Group', groupSchema)
+const GroupModel = mongoose.model<GroupDocument>("Group", groupSchema);
 
-export default GroupModel
+export default GroupModel;

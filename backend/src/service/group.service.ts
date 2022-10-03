@@ -20,6 +20,16 @@ export async function findGroup(id: String): Promise<GroupDocument> {
 	}
 }
 
+export async function editGroup(id: String): Promise<GroupDocument> {
+	try {
+		const group = await findGroup()
+	}
+}
+
+export async function deleteGroup(id: String): Promise<GroupDocument> {
+	
+}
+
 export async function findAllGroups() {
 	return GroupModel.find()
 	.populate({

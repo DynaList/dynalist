@@ -23,6 +23,18 @@ export async function findGroupHandler(req: Request, res: Response) {
 	}
 }
 
+export async function editGroupHandler(req: Request, res: Response) {
+	try {
+		const group = await findGroup(req.params.id)
+		
+	}
+}
+
+export async function deleteGroupHandler(req: Request, res: Response) {
+	
+}
+
+
 export async function findAllGroupsHandler(req: Request, res: Response) {
 	const groups = await findAllGroups()
 
