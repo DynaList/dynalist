@@ -7,7 +7,7 @@ import log from "./utils/logger";
 import connectDB from "./utils/connect";
 import routes from "./routes";
 
-dotenv.config();
+require("dotenv").config();
 
 const app = express();
 

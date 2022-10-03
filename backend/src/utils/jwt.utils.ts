@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-import { PRIVATE_KEY, PUBLIC_KEY } from "../accessKeys";
+import { PRIVATE_KEY, PUBLIC_KEY } from "../../accessKeys";
 
 export function signJwt(object: Object, options?: jwt.SignOptions | undefined) {
   return jwt.sign(object, PRIVATE_KEY, {
