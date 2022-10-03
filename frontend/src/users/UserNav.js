@@ -4,15 +4,6 @@ import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useHistory } from "react-router-dom";
 import { CurrentUser } from "../contexts/CurrentUser";
 
-const history = useHistory();
-
-const { setCurrentUser } = useContext(CurrentUser);
-
-const [credentials, setCredentials] = useState({
-  email: "",
-  password: "",
-});
-
 const user = {
   name: "Tom Cook",
   email: "tom@example.com",
@@ -29,36 +20,47 @@ const userNavigation = [
   { name: "Sign out", href: "/" },
 ];
 
-async function handleSubmit(e) {
-  e.preventDefault();
+// async function handleSubmit(e) {
+//   const history = useHistory()
 
-  const response = await fetch(
-    `${process.env.REACT_APP_SERVER_URL}api/sessions`,
-    {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `bearer`,
-      },
-      body: JSON.stringify(credentials),
-    }
-  );
-  console.log(response);
+//   const { setCurrentUser } = useContext(CurrentUser)
 
-  const data = await response.json();
+//   const [credentials, setCredentials] = useState({
+//         email: '',
+//         password: ''
+//     })
+    
+//   e.preventDefault()
+  
+//   const response = await fetch(`${process.env.REACT_APP_SERVER_URL}api/sessions`, {
+//       method: 'DELETE',
+//       headers: {
+//           'Content-Type': 'application/json',
+//           'Authorization': `bearer`
+//       },
+//       body: JSON.stringify(credentials)
+//   })
+//   console.log(response)
 
-  if (response.status === 200) {
-    setCurrentUser(data.user);
-    history.push(`/`);
-  } else {
-    setErrorMessage(data.message);
-  }
-}
+//   const data = await response.json()
+
+//   if (response.status === 200) {
+//       setCurrentUser(data.user)
+//       history.push(`/`)
+//   } else {
+//       setErrorMessage(data.message)
+//   }
+
+// }
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function UserNav() {
+  const history = useHistory()
+
+  const { currentUser } = useContext(CurrentUser)
+
   return (
     <div className="min-h-full">
       <Disclosure as="nav" className="bg-background-dark-color">
@@ -90,9 +92,31 @@ export default function UserNav() {
                           )}
                           aria-current={item.current ? "page" : undefined}
                         >
+<<<<<<< HEAD
                           {item.name}
                         </a>
                       ))}
+=======
+                          <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                            {userNavigation.map((item) => (
+                              <Menu.Item key={item.name}>
+                                {({ active }) => (
+                                  <a
+                                    href={item.href}
+                                    className={classNames(
+                                      active ? 'bg-gray-100' : '',
+                                      'block px-4 py-2 text-sm text-gray-700'
+                                    )}
+                                  >
+                                    {item.name}
+                                  </a>
+                                )}
+                              </Menu.Item>
+                            ))}
+                          </Menu.Items>
+                        </Transition>
+                      </Menu>
+>>>>>>> da6ca768a2560144f08770e50ec9bf56e7a22fc3
                     </div>
                   </div>
                 </div>

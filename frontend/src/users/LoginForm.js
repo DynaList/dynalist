@@ -30,7 +30,29 @@ export default function LoginForm() {
     );
     console.log(response);
 
-    const data = await response.json();
+    async function handleSubmit(e) {
+        e.preventDefault()
+        //fetch refering to backend user auth file- adjust when file created.
+        const response = await fetch(`${process.env.REACT_APP_SERVER_URL}api/sessions`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                // 'Authorization': `bearer ${accessToken}`
+            },
+            body: JSON.stringify(credentials)
+        })
+        console.log(response)
+
+        const data = await response.json()
+
+        if (response.status === 200) {
+            setCurrentUser(data.user)
+            console.log(data.token)
+            localStorage.setItem('token', data.token)
+            history.push(`/dashboard`)
+        } else {
+            setErrorMessage(data.message)
+        }
 
     if (response.status === 200) {
       setCurrentUser(data.user);
