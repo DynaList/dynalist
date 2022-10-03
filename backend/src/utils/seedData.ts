@@ -22,7 +22,12 @@ function userSeedData(count: Number): Array<UserDocument> {
 			firstName: adjective,
 			lastName: noun,
 			email: 'seeded@gmail.com',
-			password: 'password'
+			password: 'password',
+			country: 'US',
+			street: noun + " Street",
+			city: 'Raleigh',
+			state: 'NC',
+			zip: '27511'
 		})
 
 		// Push it to the array
