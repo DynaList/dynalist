@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createGroupHandler, deleteGroupHandler, editGroupHandler, findAllGroupsHandler, findGroupHandler } from "../controller/group.controller";
+import { createGroupHandler, deleteGroupHandler, editGroupHandler, findAllGroupsHandler, findGroupHandler, seedGroupsHandler } from "../controller/group.controller";
 
 const groupRouter = Router()
 
@@ -10,6 +10,9 @@ groupRouter.get('/', (req, res) => {
 
 // get all
 groupRouter.get('/all', findAllGroupsHandler)
+
+// seed
+groupRouter.get('/seed/:count', seedGroupsHandler)
 
 // new
 groupRouter.post('/new', createGroupHandler)

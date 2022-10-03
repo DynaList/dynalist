@@ -16,7 +16,7 @@ userRouter.get("/", (req: Request, res: Response) => {
 
 userRouter.post("/new", validate(createUserSchema), createUserHandler);
 
-userRouter.get('/seeddata/:count', seedUsersHandler)
+userRouter.get('/seed/:count', seedUsersHandler)
 
 userRouter.get("/all", findAllUsersHandler);
 
