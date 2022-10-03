@@ -1,9 +1,17 @@
-import { Router, Request, Response } from "express";
+import { Router } from "express";
 
-import { createSessionHandler } from "../controller/session.controller";
+import validate from "../middleware/validateResource";
+import requireUser from "../middleware/requireUser";
+import { createSessionSchema } from "../schema/session.schema";
+import {
+  createSessionHandler,
+  getSessionsHandler,
+} from "../controller/session.controller";
 
 const sessionRouter = Router();
 
-sessionRouter.post("/", createSessionHandler);
+sessionRouter.post("/", validate(createSessionSchema), createSessionHandler);
+
+sessionRouter.get("/", requireUser, getSessionsHandler);
 
 export default sessionRouter;
