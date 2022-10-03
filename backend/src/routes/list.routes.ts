@@ -1,26 +1,26 @@
 import { Router } from "express";
 import { createListHandler, deleteListHandler, editListHandler, findAllListsHandler, findListHandler } from "../controller/list.controller";
 
-const groupRouter = Router()
+const listRouter = Router()
 
 // index
-groupRouter.get('/', (req, res) => {
+listRouter.get('/', (req, res) => {
 	res.json({ message: 'List endpoint'})
 })
 
 // get all
-groupRouter.get('/all', findAllListsHandler)
+listRouter.get('/all', findAllListsHandler)
 
 // new
-groupRouter.post('/new', createListHandler)
+listRouter.post('/new', createListHandler)
 
 // get one
-groupRouter.get('/:id', findListHandler)
+listRouter.get('/:id', findListHandler)
 
 // edit one
-groupRouter.put('/:id', editListHandler)
+listRouter.put('/:id', editListHandler)
 
 // delete one
-groupRouter.delete('/:id', deleteListHandler)
+listRouter.delete('/:id', deleteListHandler)
 
-export default groupRouter
+export default listRouter

@@ -4,8 +4,8 @@ import log from "../utils/logger";
 
 export async function createList(input: ListDocument) {
 	try {
-		const newGroup = await ListModel.create(input)
-		return newGroup.toJSON()
+		const newList = await ListModel.create(input)
+		return newList.toJSON()
 	} catch (error: any) {
 		throw new Error(error)
 	}

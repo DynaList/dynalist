@@ -52,7 +52,7 @@ export async function deleteListHandler(req: Request, res: Response) {
 
 
 export async function findAllListsHandler(req: Request, res: Response) {
-	const groups = await findAllLists()
+	const lists = await findAllLists()
 
-	return res.send(groups)
+	return res.send(lists)
 }
