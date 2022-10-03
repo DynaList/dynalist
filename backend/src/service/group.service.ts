@@ -14,7 +14,10 @@ export async function createGroup(input: GroupDocument) {
 export async function findGroup(id: String): Promise<GroupDocument> {
 	try {
 		const group = await GroupModel.findById(id).exec()
-		return group!
+		if (group === null) {
+			throw new Error("Could not find group")
+		}
+		return group
 	} catch (error: any) {
 		throw new Error(error)
 	}
@@ -38,7 +41,6 @@ export async function deleteGroup(id: String): Promise<boolean> {
 		if (deletedGroup === null) {
 			throw new Error("Could not find group to delete")
 		}
-		console.log(deletedGroup)
 		return true
 	} catch (error: any) {
 		throw new Error(error)

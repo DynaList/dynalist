@@ -3,6 +3,7 @@ import { Express, Request, Response } from "express";
 import userRouter from "./user.routes";
 import sessionRouter from "./session.routes";
 import groupRouter from "./group.routes";
+import listRouter from "./list.routes";
 
 function routes(app: Express) {
   app.get("/api/test", async (req: Request, res: Response) => {
@@ -12,11 +13,7 @@ function routes(app: Express) {
   app.use("/api/users", userRouter);
   app.use("/api/sessions", sessionRouter);
   app.use("/api/groups", groupRouter)
-
-  // 404
-  app.get('/*', async (req: Request, res: Response) => {
-    res.status(404).send("Error 404: Could not find route")
-  })
+  app.use('/api/lists', listRouter)
 }
 
 export default routes;
