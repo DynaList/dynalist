@@ -20,14 +20,29 @@ export async function findGroup(id: String): Promise<GroupDocument> {
 	}
 }
 
-export async function editGroup(id: String): Promise<GroupDocument> {
+export async function editGroup(id: String, body: Object): Promise<GroupDocument> {
 	try {
-		const group = await findGroup()
+		const group = await GroupModel.findByIdAndUpdate(id, body, { new: true})
+		if (group === null) {
+			throw new Error("Could not find group to update")
+		}
+		return group
+	} catch (error: any) {
+		throw new Error(error)
 	}
 }
 
-export async function deleteGroup(id: String): Promise<GroupDocument> {
-	
+export async function deleteGroup(id: String): Promise<boolean> {
+	try {
+		const deletedGroup = await GroupModel.findByIdAndDelete(id)
+		if (deletedGroup === null) {
+			throw new Error("Could not find group to delete")
+		}
+		console.log(deletedGroup)
+		return true
+	} catch (error: any) {
+		throw new Error(error)
+	}
 }
 
 export async function findAllGroups() {

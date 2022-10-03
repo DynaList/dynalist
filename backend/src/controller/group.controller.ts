@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { createGroup, findAllGroups, findGroup } from "../service/group.service";
+import { createGroup, deleteGroup, editGroup, findAllGroups, findGroup } from "../service/group.service";
 import log from "../utils/logger";
 
 export async function createGroupHandler(req: Request, res: Response) {
@@ -16,7 +16,10 @@ export async function createGroupHandler(req: Request, res: Response) {
 export async function findGroupHandler(req: Request, res: Response) {
 	try {
 		const group = await findGroup(req.params.id)
-		return res.send(group)
+		if (group === null) {
+			return res.status(404).send({ message: "Error: Could not find group"})
+		}
+		return res.status(200).send(group)
 	} catch (error: any) {
 		log.error(error)
 		return res.status(404).send(error.message)
@@ -25,13 +28,26 @@ export async function findGroupHandler(req: Request, res: Response) {
 
 export async function editGroupHandler(req: Request, res: Response) {
 	try {
-		const group = await findGroup(req.params.id)
-		
+		const updatedGroup = await editGroup(req.params.id, req.body)
+		return res.status(200).send(updatedGroup)
+	} catch (error: any) {
+		log.error(error)
+		return res.status(400).send(error.message)
 	}
 }
 
 export async function deleteGroupHandler(req: Request, res: Response) {
-	
+	try {
+		const success = await deleteGroup(req.params.id)
+		if (success) {
+			return res.status(200).send({ message: "Successfully deleted group", success: true })
+		} else {
+			return res.status(400).send({ message: "Error deleting group", success: false})
+		}
+	} catch (error: any) {
+		log.error(error)
+		return res.status(400).send(error.message)
+	}
 }
 
 
