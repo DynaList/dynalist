@@ -26,6 +26,7 @@ export default function LoginForm() {
             },
             body: JSON.stringify(credentials)
         })
+        console.log(response)
 
         const data = await response.json()
 
