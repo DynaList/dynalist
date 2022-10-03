@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createListHandler, deleteListHandler, editListHandler, findAllListsHandler, findListHandler } from "../controller/list.controller";
+import { createListHandler, deleteListHandler, editListHandler, findAllListsHandler, findListHandler, seedListsHandler } from "../controller/list.controller";
 
 const listRouter = Router()
 
@@ -10,6 +10,9 @@ listRouter.get('/', (req, res) => {
 
 // get all
 listRouter.get('/all', findAllListsHandler)
+
+// seed
+listRouter.get('/seed/:count', seedListsHandler)
 
 // new
 listRouter.post('/new', createListHandler)
