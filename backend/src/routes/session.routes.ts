@@ -1,6 +1,7 @@
 import { Router } from "express";
 
 import validate from "../middleware/validateResource";
+import requireUser from "../middleware/requireUser";
 import { createSessionSchema } from "../schema/session.schema";
 import {
   createSessionHandler,
@@ -11,6 +12,6 @@ const sessionRouter = Router();
 
 sessionRouter.post("/", validate(createSessionSchema), createSessionHandler);
 
-sessionRouter.get("/", getSessionsHandler);
+sessionRouter.get("/", requireUser, getSessionsHandler);
 
 export default sessionRouter;
