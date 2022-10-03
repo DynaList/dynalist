@@ -102,7 +102,7 @@ function itemSeedData(count: Number): Array<ItemDocument> {
 		// Name consists of a random noun
 		const name = noun
 
-		const price = "$" + Math.random() * 200
+		const price = Math.round(Math.random() * 200)
 
 		// Make item document
 		const item = new ItemModel({
