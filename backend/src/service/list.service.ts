@@ -2,6 +2,7 @@ import { ObjectId } from "mongoose";
 import ListModel, { ListDocument } from "../models/list.model";
 import log from "../utils/logger";
 
+// new list
 export async function createList(input: ListDocument) {
 	try {
 		const newList = await ListModel.create(input)
@@ -11,6 +12,7 @@ export async function createList(input: ListDocument) {
 	}
 }
 
+// find one
 export async function findList(id: String): Promise<ListDocument> {
 	try {
 		const list = await ListModel.findById(id).exec()
@@ -23,6 +25,7 @@ export async function findList(id: String): Promise<ListDocument> {
 	}
 }
 
+// edit one
 export async function editList(id: String, body: Object): Promise<ListDocument> {
 	try {
 		const list = await ListModel.findByIdAndUpdate(id, body, { new: true})
@@ -35,6 +38,7 @@ export async function editList(id: String, body: Object): Promise<ListDocument> 
 	}
 }
 
+// delete one
 export async function deleteList(id: String): Promise<boolean> {
 	try {
 		const deletedList = await ListModel.findByIdAndDelete(id)
@@ -47,6 +51,7 @@ export async function deleteList(id: String): Promise<boolean> {
 	}
 }
 
+// get all
 export async function findAllLists() {
 	return ListModel.find()
 	.populate({
