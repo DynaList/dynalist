@@ -20,46 +20,48 @@ const userNavigation = [
   { name: "Sign out", href: "/" },
 ];
 
-// async function handleSubmit(e) {
-//   const history = useHistory()
+async function handleSubmit(e) {
+  // const history = useHistory()
 
-//   const { setCurrentUser } = useContext(CurrentUser)
+  const { setCurrentUser } = useContext(CurrentUser)
 
-//   const [credentials, setCredentials] = useState({
-//         email: '',
-//         password: ''
-//     })
+  const [credentials, setCredentials] = useState({
+        email: '',
+        password: ''
+    })
+  
+  e.preventDefault()
 
-//   e.preventDefault()
+  const response = await fetch(`${process.env.REACT_APP_SERVER_URL}api/sessions`, {
+      method: 'DELETE',
+      headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
+          'x-refresh': `${localStorage.getItem("refreshToken")}`
+      },
+      body: JSON.stringify(credentials)
+  })
 
-//   const response = await fetch(`${process.env.REACT_APP_SERVER_URL}api/sessions`, {
-//       method: 'DELETE',
-//       headers: {
-//           'Content-Type': 'application/json',
-//           'Authorization': `Bearer `
-//       },
-//       body: JSON.stringify(credentials)
-//   })
-//   console.log(response)
+  const data = await response.json()
+  // console.log(data)
 
-//   const data = await response.json()
+  // if (response.status === 200) {
+  //   setCurrentUser(data.user);
+  //   localStorage.setItem('accessToken', data.accessToken);
+  //   localStorage.setItem('refreshToken', data.refreshToken);
+  //   history.push(`/dashboard`);
+  //   console.log(data.accessToken);
+  // } else {
+  //   setErrorMessage(data.message);
+  // }
 
-//   if (response.status === 200) {
-//       setCurrentUser(data.user)
-//       history.push(`/`)
-//   } else {
-//       setErrorMessage(data.message)
-//   }
+}
 
-// }
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function UserNav() {
-  const history = useHistory();
-
-  const { currentUser } = useContext(CurrentUser);
 
   return (
     <div className="min-h-full">
@@ -130,7 +132,24 @@ export default function UserNav() {
                         leaveTo="transform opacity-0 scale-95"
                       >
                         <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                          {userNavigation.map((item) => (
+                        {userNavigation.map((item) => {
+                          if (item.name === 'Sign out') {
+                            return (
+                            <Menu.Item onClick={handleSubmit} key={item.name}>
+                              {({ active }) => (
+                                <a
+                                  href={item.href}
+                                  className={classNames(
+                                    active ? "bg-gray-100" : "",
+                                    "block px-4 py-2 text-sm text-gray-700"
+                                  )}
+                                >
+                                  {item.name}
+                                </a>
+                              )}
+                            </Menu.Item>
+                          )}
+                          return (
                             <Menu.Item key={item.name}>
                               {({ active }) => (
                                 <a
@@ -144,7 +163,9 @@ export default function UserNav() {
                                 </a>
                               )}
                             </Menu.Item>
-                          ))}
+                          )
+                          }
+                        )}
                         </Menu.Items>
                       </Transition>
                     </Menu>
