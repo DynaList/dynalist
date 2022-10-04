@@ -7,6 +7,7 @@ import SignUpForm from './users/SignUpForm';
 import Error404 from './components/Error404'
 import Footer from './components/Footer';
 import UserDashboard from './users/UserDashboard';
+import NewGroup from './users/newGroup';
 
 
 function App() {
@@ -18,12 +19,12 @@ function App() {
             <Route exact path="/sign-up" component={SignUpForm} />
             <Route exact path="/login" component={LoginForm} />
             <Route exact path="/dashboard" component={UserDashboard} />
-            {/* <Route exact path="/groups/new" component={NewPlaceForm} />
-            <Route exact path="/groups" component={UserGroups} />
-            <Route exact path="/groups/:groupId" component={UserGroupDetails} />
-            <Route exact path="/lists" component={UserLists} />
-            <Route exact path="/lists/:listId" component={UserListDetails} />
-            */}
+            <Route exact path="/new" component={NewGroup} />
+            {/* <Route exact path="/groups" component={UserGroups} /> */}
+            {/* <Route exact path="/groups/:groupId" component={UserGroupDetails} /> */}
+            {/* <Route exact path="/lists" component={UserLists} /> */}
+            {/* <Route exact path="/lists/:listId" component={UserListDetails} /> */}
+            
             <Route path='*' component={Error404} />
           </Switch>
           <Footer/>
