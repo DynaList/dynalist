@@ -19,7 +19,7 @@ function App() {
             <Route exact path="/sign-up" component={SignUpForm} />
             <Route exact path="/login" component={LoginForm} />
             <Route exact path="/dashboard" component={UserDashboard} />
-            <Route exact path="/new" component={NewGroup} />
+            <Route exact path="/newGroup" component={NewGroup} />
             {/* <Route exact path="/groups" component={UserGroups} /> */}
             {/* <Route exact path="/groups/:groupId" component={UserGroupDetails} /> */}
             {/* <Route exact path="/lists" component={UserLists} /> */}
