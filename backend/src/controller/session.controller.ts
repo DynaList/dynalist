@@ -35,7 +35,7 @@ export async function getSessionsHandler(req: Request, res: Response) {
   const userId = res.locals.user._id;
   const sessions = await findSessions({ user: userId, valid: true });
 
-  return res.send(sessions);
+  return res.send(sessions[0]);
 }
 
 export async function deleteSessionHandler(req: Request, res: Response) {

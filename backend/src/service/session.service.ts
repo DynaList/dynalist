@@ -12,7 +12,12 @@ export async function createSession(userId: string, userAgent: string) {
 }
 
 export async function findSessions(query: FilterQuery<SessionDocument>) {
-  return SessionModel.find(query).lean();
+  return SessionModel.find(query)
+    .populate({
+      path: "user",
+      select: ["firstName", "lastName"],
+    })
+    .lean();
 }
 
 export async function updateSession(

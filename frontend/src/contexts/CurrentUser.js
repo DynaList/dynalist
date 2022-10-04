@@ -1,28 +1,24 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState } from "react";
+
+const initialState = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  country: "",
+  street: "",
+  city: "",
+  state: "",
+  zip: "",
+};
 
 export const CurrentUser = createContext();
 
 export default function CurrentUserProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState(null);
-
-  useEffect(() => {
-    const getLoggedInUser = async () => {
-      let response = await fetch(
-        `${process.env.REACT_APP_SERVER_URL}api/sessions`,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      let user = await response.json();
-      setCurrentUser(user);
-    };
-    getLoggedInUser();
-  }, []);
+  const [currentUser, setCurrentUser] = useState(initialState);
 
   return (
-    <CurrentUser.Provider value={{ currentUser, setCurrentUser }}>
+    <CurrentUser.Provider value={{ initialState, currentUser, setCurrentUser }}>
       {children}
     </CurrentUser.Provider>
   );
