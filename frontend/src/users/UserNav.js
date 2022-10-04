@@ -36,7 +36,7 @@ const userNavigation = [
 //       method: 'DELETE',
 //       headers: {
 //           'Content-Type': 'application/json',
-//           'Authorization': `bearer`
+//           'Authorization': `Bearer `
 //       },
 //       body: JSON.stringify(credentials)
 //   })
