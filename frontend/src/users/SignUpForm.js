@@ -19,7 +19,7 @@ export default function SignUpForm() {
 
 	async function handleSubmit(e) {
 		e.preventDefault()
-        // fetch refering to backend user auth file- adjust when file created.
+
 		await fetch(`${process.env.REACT_APP_SERVER_URL}api/users/new`, {
 			method: 'POST',
 			headers: {
@@ -33,27 +33,23 @@ export default function SignUpForm() {
 
 	return (
 		<main>
-			<div className="flex h-screen min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-				<div className="w-full max-w-md space-y-8">
-					<div className="">
-						<img
-							className="mx-auto h-12 w-auto"
-							src="./images/logo/icons8-kawaii-dinosaur-100.png"
-							alt="DynaList"
-						/>
-						<h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-200">
-							Sign up for an account
-						</h2>
-					</div>
-				</div>
-
-				<div className="mt-10 sm:mt-0">
+			<div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+				<div className="mt-10 sm:mt-0 overflow-hidden shadow rounded-md bg-white">
 					<div className="md:grid md:grid-cols-2 md:gap-6">  
-						<div className="mt-5 md:col-span-2 md:mt-0">
-							
+						<div className="mt-5 md:col-span-2 md:mt-0 px-4 py-5 sm:p-6 text-background-dark-color">
+							<div className="pb-6">
+								<img
+									className="mx-auto h-12 w-auto"
+									src="./images/logo/icons8-kawaii-dinosaur-100.png"
+									alt="DynaList"
+								/>
+								<h2 className="mt-6 text-center text-3xl font-bold tracking-tight">
+									Sign up for an account
+								</h2>
+							</div>
 							<form onSubmit={handleSubmit}>
 								<div className="overflow-hidden shadow sm:rounded-md">
-									<div className="bg-white px-4 py-5 sm:p-6 text-background-dark-color">
+									<div className=" px-4 py-5 sm:p-6 text-background-dark-color">
 										<div className="grid grid-cols-6 gap-6">
 											
 											<div className="col-span-6 sm:col-span-3">
@@ -205,7 +201,7 @@ export default function SignUpForm() {
 										</div>
 									</div>
 
-									<div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
+									<div className="px-4 py-3 text-right sm:px-6">
 										<button
 											type="submit"
 											className="flex items-center w-full mx-auto justify-center rounded-md border border-transparent bg-logo-purple py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"

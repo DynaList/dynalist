@@ -30,23 +30,17 @@ export default function LoginForm() {
     );
 
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
 
     if (response.status === 200) {
       setCurrentUser(data.user);
-      console.log(data.token);
-      localStorage.setItem("token", data.token);
+      localStorage.setItem('accessToken', data.accessToken);
+      localStorage.setItem('refreshToken', data.refreshToken);
       history.push(`/dashboard`);
     } else {
       setErrorMessage(data.message);
     }
 
-    if (response.status === 200) {
-      setCurrentUser(data.user);
-      history.push(`/dashboard`);
-    } else {
-      setErrorMessage(data.message);
-    }
   }
 
   return (
@@ -69,8 +63,8 @@ export default function LoginForm() {
               Login to your account
             </h2>
           </div>
+          
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-            {/* <form className="mt-8 space-y-6" onSubmit={handleSubmit}> */}
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="-space-y-px rounded-md shadow-sm">
               <div>
