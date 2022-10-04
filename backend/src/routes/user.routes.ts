@@ -8,6 +8,7 @@ import {
   editUserHandler,
   findAllUsersHandler,
   findUserHandler,
+  findUsersByNameHandler,
   seedUsersHandler,
 } from "../controller/user.controller";
 
@@ -26,6 +27,9 @@ userRouter.get('/seed/:count', seedUsersHandler)
 
 // new
 userRouter.post("/new", validate(createUserSchema), createUserHandler);
+
+// get by name
+userRouter.get("/search/:name", findUsersByNameHandler)
 
 // get one
 userRouter.get('/:id', findUserHandler)

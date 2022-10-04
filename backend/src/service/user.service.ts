@@ -1,6 +1,5 @@
 import { DocumentDefinition, FilterQuery } from "mongoose";
 import { omit } from "lodash";
-
 import UserModel, { UserDocument } from "../models/user.model";
 
 // new user
@@ -26,6 +25,22 @@ export async function findUser(id: String): Promise<UserDocument> {
 	} catch (error: any) {
 		throw new Error(error)
 	}
+}
+
+// find by name
+export async function findUsersByName(nameInput: string): Promise<Array<UserDocument>> {
+  try {
+    // sanitize input
+    const users = await UserModel.find({ 
+      $or: [
+        { firstName: { $regex: nameInput, $options: 'ix' } },
+        { lastName: { $regex: nameInput, $options: 'ix' } }
+      ]
+    })
+    return users
+  } catch (error: any) {
+    throw new Error(error)
+  }
 }
 
 // edit one

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { CreateUserInput } from "../schema/user.schema";
-import { createUser, deleteUser, editUser, findAllUsers, findUser } from "../service/user.service";
+import { createUser, deleteUser, editUser, findAllUsers, findUser, findUsersByName } from "../service/user.service";
 import log from "../utils/logger";
 import { userSeedData } from "../utils/seedData";
 
@@ -29,6 +29,20 @@ export async function findUserHandler(req: Request, res: Response) {
   } catch (error: any) {
     log.error(error)
     return res.status(404).send(error.message)
+  }
+}
+
+// find one by name
+export async function findUsersByNameHandler(req: Request, res: Response) {
+  try {
+    const users = await findUsersByName(req.params.name)
+    return res.status(200).send({
+      count: users.length,
+      results: users
+    })
+  } catch (error: any) {
+    log.error(error)
+    return res.status(400).send(error.message)
   }
 }
 
