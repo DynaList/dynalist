@@ -21,7 +21,7 @@ function Navigation() {
   );
 
   // this needs to redirect to dashboard and show currentuser in the profile section of the userNav
-  if (currentUser) {
+  if (currentUser.firstName) {
     loginActions = (
       <div>
         <button className="bg-white text-background-dark-color font-bold rounded py-4 px-8 shadow-lg uppercase tracking-wider">

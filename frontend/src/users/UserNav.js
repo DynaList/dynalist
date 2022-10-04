@@ -2,6 +2,8 @@ import React, { useState, Fragment, useContext } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useHistory } from "react-router-dom";
+
+import serverRequest from "../api/backServer";
 import { CurrentUser } from "../contexts/CurrentUser";
 
 const user = {
@@ -20,48 +22,30 @@ const userNavigation = [
   { name: "Sign out", href: "/" },
 ];
 
-async function handleSubmit(e) {
-  // const history = useHistory()
-
-  const { setCurrentUser } = useContext(CurrentUser)
-
-  const [credentials, setCredentials] = useState({
-        email: '',
-        password: ''
-    })
-  
-  e.preventDefault()
-
-  const response = await fetch(`${process.env.REACT_APP_SERVER_URL}api/sessions`, {
-      method: 'DELETE',
-      headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem("accessToken")}`,
-          'x-refresh': `${localStorage.getItem("refreshToken")}`
-      },
-      body: JSON.stringify(credentials)
-  })
-
-  const data = await response.json()
-  // console.log(data)
-
-  // if (response.status === 200) {
-  //   setCurrentUser(data.user);
-  //   localStorage.setItem('accessToken', data.accessToken);
-  //   localStorage.setItem('refreshToken', data.refreshToken);
-  //   history.push(`/dashboard`);
-  //   console.log(data.accessToken);
-  // } else {
-  //   setErrorMessage(data.message);
-  // }
-
-}
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function UserNav() {
+  const { initialState, setCurrentUser } = useContext(CurrentUser);
+  const history = useHistory();
+
+  const [credentials, setCredentials] = useState({
+    email: "",
+    password: "",
+  });
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    const response = await serverRequest.delete("api/sessions");
+    console.log(response);
+
+    setCurrentUser({ ...initialState });
+    console.log(CurrentUser);
+
+    history.push("/");
+  }
 
   return (
     <div className="min-h-full">
@@ -132,40 +116,43 @@ export default function UserNav() {
                         leaveTo="transform opacity-0 scale-95"
                       >
                         <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                        {userNavigation.map((item) => {
-                          if (item.name === 'Sign out') {
+                          {userNavigation.map((item) => {
+                            if (item.name === "Sign out") {
+                              return (
+                                <Menu.Item
+                                  onClick={handleSubmit}
+                                  key={item.name}
+                                >
+                                  {({ active }) => (
+                                    <a
+                                      href={item.href}
+                                      className={classNames(
+                                        active ? "bg-gray-100" : "",
+                                        "block px-4 py-2 text-sm text-gray-700"
+                                      )}
+                                    >
+                                      {item.name}
+                                    </a>
+                                  )}
+                                </Menu.Item>
+                              );
+                            }
                             return (
-                            <Menu.Item onClick={handleSubmit} key={item.name}>
-                              {({ active }) => (
-                                <a
-                                  href={item.href}
-                                  className={classNames(
-                                    active ? "bg-gray-100" : "",
-                                    "block px-4 py-2 text-sm text-gray-700"
-                                  )}
-                                >
-                                  {item.name}
-                                </a>
-                              )}
-                            </Menu.Item>
-                          )}
-                          return (
-                            <Menu.Item key={item.name}>
-                              {({ active }) => (
-                                <a
-                                  href={item.href}
-                                  className={classNames(
-                                    active ? "bg-gray-100" : "",
-                                    "block px-4 py-2 text-sm text-gray-700"
-                                  )}
-                                >
-                                  {item.name}
-                                </a>
-                              )}
-                            </Menu.Item>
-                          )
-                          }
-                        )}
+                              <Menu.Item key={item.name}>
+                                {({ active }) => (
+                                  <a
+                                    href={item.href}
+                                    className={classNames(
+                                      active ? "bg-gray-100" : "",
+                                      "block px-4 py-2 text-sm text-gray-700"
+                                    )}
+                                  >
+                                    {item.name}
+                                  </a>
+                                )}
+                              </Menu.Item>
+                            );
+                          })}
                         </Menu.Items>
                       </Transition>
                     </Menu>

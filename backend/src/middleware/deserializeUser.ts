@@ -9,7 +9,7 @@ const deserializeUser = async (
   res: Response,
   next: NextFunction
 ) => {
-  const accessToken = get(req, "headers.authorization", "").replace(
+  const accessToken = get(req.headers, "authorization", "").replace(
     /^Bearer\s/,
     ""
   );
@@ -23,13 +23,13 @@ const deserializeUser = async (
     return next();
   }
 
-  const refreshToken = get(req, "headers.x-refresh");
+  const refreshToken = get(req, "headers.xrefresh");
 
   if (expired && refreshToken) {
     const newAccessToken = await reIssueAccessToken({ refreshToken });
 
     if (newAccessToken) {
-      res.setHeader("x-access-token", newAccessToken);
+      res.setHeader("Authorization", `Bearer ${newAccessToken}`);
 
       const result = verifyJwt(newAccessToken);
 
