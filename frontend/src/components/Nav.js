@@ -12,11 +12,11 @@ function Navigation() {
 
     let loginActions = (
             <div>
-                <button className="w-1/8 border-solid border-2 border-light-purple bg-white text-background-dark-color font-bold rounded-full py-2 px-6 shadow-lg uppercase tracking-wider hover:bg-background-dark-color hover:text-light-purple hover:border-bright-purple hover:border-2 hover:border-solid hover:shadow-lg">
-                    <a href="#" onClick={() => history.push("/login")}>
-                        Login
-                    </a>
-                </button> 
+                <a href="#" onClick={() => history.push("/login")}>
+                    <button className="w-1/8 border-solid border-2 border-light-purple bg-white text-background-dark-color font-bold rounded-full py-2 px-6 shadow-lg uppercase tracking-wider hover:bg-background-dark-color hover:text-light-purple hover:border-bright-purple hover:border-2 hover:border-solid hover:shadow-lg">
+                    Login
+                    </button> 
+                </a>
             </div>   
     )
 
