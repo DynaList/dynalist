@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createItemHandler, deleteItemHandler, editItemHandler, findAllItemsHandler, findItemHandler } from "../controller/item.controller";
+import { createItemHandler, deleteItemHandler, editItemHandler, findAllItemsHandler, findItemHandler, seedItemsHandler } from "../controller/item.controller";
 
 const itemRouter = Router()
 
@@ -10,6 +10,9 @@ itemRouter.get('/', (req, res) => {
 
 // get all
 itemRouter.get('/all', findAllItemsHandler)
+
+// seed
+itemRouter.get('/seed/:count', seedItemsHandler)
 
 // new
 itemRouter.post('/new', createItemHandler)

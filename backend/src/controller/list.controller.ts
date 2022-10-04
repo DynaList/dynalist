@@ -1,7 +1,9 @@
 import { Request, Response } from "express"
 import { createList, deleteList, editList, findAllLists, findList } from "../service/list.service";
 import log from "../utils/logger";
+import { listSeedData } from "../utils/seedData";
 
+// create one
 export async function createListHandler(req: Request, res: Response) {
 	try {
 		const newList = await createList(req.body)
@@ -13,6 +15,7 @@ export async function createListHandler(req: Request, res: Response) {
 	}
 }
 
+// find one
 export async function findListHandler(req: Request, res: Response) {
 	try {
 		const list = await findList(req.params.id)
@@ -26,6 +29,7 @@ export async function findListHandler(req: Request, res: Response) {
 	}
 }
 
+// edit one
 export async function editListHandler(req: Request, res: Response) {
 	try {
 		const updatedList = await editList(req.params.id, req.body)
@@ -36,6 +40,7 @@ export async function editListHandler(req: Request, res: Response) {
 	}
 }
 
+// delete one
 export async function deleteListHandler(req: Request, res: Response) {
 	try {
 		const success = await deleteList(req.params.id)
@@ -50,9 +55,28 @@ export async function deleteListHandler(req: Request, res: Response) {
 	}
 }
 
-
+// find all
 export async function findAllListsHandler(req: Request, res: Response) {
 	const lists = await findAllLists()
 
 	return res.send(lists)
+}
+
+// seed
+export async function seedListsHandler(req: Request, res: Response) {
+	// Should authenticate this, check if the user is an admin and if not just show a 404 page
+	let count = req.params.count
+
+	const data = listSeedData(Number(count))
+	const results = []
+	
+	// Save each item individually to make sure we get the middleware running
+	for (let i = 0; i < data.length; i++) {
+		results.push(await data[i].save())
+	}
+	
+	res.status(201).json({
+		message: 'Seeded data',
+		results: results
+	})
 }

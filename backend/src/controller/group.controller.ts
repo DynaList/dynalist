@@ -1,6 +1,7 @@
 import { Request, Response } from "express"
 import { createGroup, deleteGroup, editGroup, findAllGroups, findGroup } from "../service/group.service";
 import log from "../utils/logger";
+import { groupSeedData } from "../utils/seedData";
 
 export async function createGroupHandler(req: Request, res: Response) {
 	try {
@@ -55,4 +56,23 @@ export async function findAllGroupsHandler(req: Request, res: Response) {
 	const groups = await findAllGroups()
 
 	return res.send(groups)
+}
+
+// seed
+export async function seedGroupsHandler(req: Request, res: Response) {
+	// Should authenticate this, check if the user is an admin and if not just show a 404 page
+	let count = req.params.count
+
+	const data = groupSeedData(Number(count))
+	const results = []
+	
+	// Save each item individually to make sure we get the middleware running
+	for (let i = 0; i < data.length; i++) {
+		results.push(await data[i].save())
+	}
+	
+	res.status(201).json({
+		message: 'Seeded data',
+		results: results
+	})
 }

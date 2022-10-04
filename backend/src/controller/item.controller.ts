@@ -1,6 +1,7 @@
 import { Request, Response } from "express"
 import { createItem, deleteItem, editItem, findAllItems, findItem } from "../service/item.service";
 import log from "../utils/logger";
+import { itemSeedData } from "../utils/seedData";
 
 export async function createItemHandler(req: Request, res: Response) {
 	try {
@@ -55,4 +56,23 @@ export async function findAllItemsHandler(req: Request, res: Response) {
 	const items = await findAllItems()
 
 	return res.send(items)
+}
+
+// seed
+export async function seedItemsHandler(req: Request, res: Response) {
+	// Should authenticate this, check if the user is an admin and if not just show a 404 page
+	let count = req.params.count
+
+	const data = itemSeedData(Number(count))
+	const results = []
+	
+	// Save each item individually to make sure we get the middleware running
+	for (let i = 0; i < data.length; i++) {
+		results.push(await data[i].save())
+	}
+	
+	res.status(201).json({
+		message: 'Seeded data',
+		results: results
+	})
 }
