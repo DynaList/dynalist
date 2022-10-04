@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Tab } from '@headlessui/react'
 import NewList from './NewList'
+import MyModal from './PopOutModal'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -41,7 +42,12 @@ export default function UserTabs() {
       },
     ],
   })
-  
+
+  const newObject = [
+    { id: 1, name: "DynoPack"},
+    { id: 2, name: "DynoList"}
+  ];
+
   return (
     <div>
       <Tab.Group>
@@ -128,6 +134,7 @@ export default function UserTabs() {
                         </li>
                       ))}
                       <li className="flex">
+                        {/* {Object.values(newObject).map((obj, idx) => ( key={idx} {obj.name}) )} */}
                         <a href="/new" className="hover:border-bright-purple hover:border-solid hover:text-bright-purple group w-full flex flex-col items-center justify-center rounded-md border-2 border-dashed border-slate-300 text-sm leading-6 text-slate-400 font-medium py-3">
                           <svg 
                             className="group-hover:text-bright-purple mb-1 text-slate-400" 
@@ -139,7 +146,8 @@ export default function UserTabs() {
                                 d="M10 5a1 1 0 0 1 1 1v3h3a1 1 0 1 1 0 2h-3v3a1 1 0 1 1-2 0v-3H6a1 1 0 1 1 0-2h3V6a1 1 0 0 1 1-1Z" 
                               />
                           </svg>
-                          New DynoPack
+                          New
+                          {/* {Object.values(newObject).map((obj, idx) => ( key={idx} {obj.name}) )} */}
                         </a>
                       </li>
                     
@@ -150,6 +158,7 @@ export default function UserTabs() {
           </div>
         </div>
       </Tab.Group>
+      
     </div>
   )
 }

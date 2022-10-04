@@ -2,6 +2,7 @@ import React from "react";
 import UserTabs from "./UserTabs";
 import UserNav from "./UserNav";
 import UserBanner from "./UserBanner";
+import MyModal from "./PopOutModal";
 
 export default function UserDashboard() {
   return (
@@ -10,6 +11,7 @@ export default function UserDashboard() {
         <UserBanner/>
         <main>
           <UserTabs/>
+          {/* <MyModal/> */}
         </main>
       </div>
   )
