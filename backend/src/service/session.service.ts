@@ -14,10 +14,11 @@ export async function createSession(userId: string, userAgent: string) {
 export async function findSessions(query: FilterQuery<SessionDocument>) {
   return SessionModel.find(query)
     .populate({
-      path: "user",
-      select: ["firstName", "lastName"],
+      path: 'user',
+      populate: {
+        path: 'groups'
+      }
     })
-    .lean();
 }
 
 export async function updateSession(
