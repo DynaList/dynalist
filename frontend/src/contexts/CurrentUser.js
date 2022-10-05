@@ -10,6 +10,7 @@ const initialState = {
   city: "",
   state: "",
   zip: "",
+  groups: []
 };
 
 export const CurrentUser = createContext();

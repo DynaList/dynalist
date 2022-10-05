@@ -1,29 +1,34 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { Tab } from '@headlessui/react'
 import NewList from './NewList'
+import { CurrentUser } from '../contexts/CurrentUser'
+import serverRequest from '../api/backServer'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function UserTabs() {
-  let [categories] = useState({
-    DynoPacks: [
-      {
-        id: 1,
-        title: 'Dyno Squad',
+  const { currentUser, setCurrentUser } = useContext(CurrentUser);
+
+  let dynopacks = []
+  if (currentUser.firstName === "") {
+    // tell the user to log in or just send them to the home page
+  } else {
+    dynopacks = currentUser.user.groups.map((group) => {
+      return {
+        id: group._id,
+        title: group.name,
         date: '5h ago',
-        listCount: 5,
-        userCount: 2,
-      },
-      {
-        id: 2,
-        title: "Mi Familia",
-        date: '2h ago',
-        listCount: 3,
-        userCount: 2,
-      },
-    ],
+        listCount: group.lists.length,
+        userCount: group.members.length
+      }
+    })
+    }
+
+
+  let [categories] = useState({
+    DynoPacks: dynopacks,
     DynaLists: [
       {
         id: 1,
