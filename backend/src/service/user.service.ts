@@ -4,7 +4,10 @@ import UserModel, { UserDocument } from "../models/user.model";
 
 // new user
 export async function createUser(
-  input: DocumentDefinition<Omit<UserDocument, "comparePassword">>
+  // this is a mess, I'll refactor it later
+  input: DocumentDefinition<
+    Omit<Omit<Omit<UserDocument, "groups">, "addGroup">, "comparePassword">
+  >
 ) {
   try {
     const newUser = await UserModel.create(input);
@@ -15,9 +18,9 @@ export async function createUser(
 }
 
 // find one
-export async function findUser(query: FilterQuery<UserDocument>) {
+export async function findUser(id: string): Promise<UserDocument> {
   try {
-    const [user] = await UserModel.find(query).exec();
+    const user = await UserModel.findById(id);
 
     if (user === null) {
       throw new Error("Could not find user");

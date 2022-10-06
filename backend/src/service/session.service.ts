@@ -13,12 +13,10 @@ export async function createSession(userId: string, userAgent: string) {
 }
 
 export async function findSessions(query: FilterQuery<SessionDocument>) {
-  return SessionModel.find(query)
-    .populate({
-      path: "user",
-      select: ["firstName", "lastName", "zip"],
-    })
-    .lean();
+  return SessionModel.find(query).populate({
+    path: "user",
+    select: ["firstName", "lastName", "zip", "groups"],
+  });
 }
 
 export async function updateSession(
@@ -48,7 +46,7 @@ export async function reIssueAccessToken({
 
   if (!session || !session.valid) return false;
 
-  const user = await findUser({ _id: session.user });
+  const user = await findUser(session.user);
   console.log({ "User from reIssueAccessToken": user });
 
   if (!user) return false;

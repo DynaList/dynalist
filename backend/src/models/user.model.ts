@@ -1,5 +1,6 @@
 import mongoose, { Types, HydratedDocument } from "mongoose";
 import bcrypt from "bcrypt";
+import { GroupDocument } from "./group.model";
 
 export interface UserDocument extends mongoose.Document {
   firstName: string;
@@ -11,8 +12,9 @@ export interface UserDocument extends mongoose.Document {
   city: string;
   state: string;
   zip: string;
-  groups?: Types.DocumentArray<Types.ObjectId>;
+  groups: Array<GroupDocument["_id"]>;
   comparePassword(givenPassword: string): Promise<boolean>;
+  addGroup(group: GroupDocument): Promise<boolean>;
 }
 
 const userSchema = new mongoose.Schema<UserDocument>({
@@ -75,6 +77,20 @@ userSchema.methods.comparePassword = async function (
 
   return bcrypt.compare(givenPassword, user.password).catch(() => false);
 };
+
+userSchema.methods.addGroup = async function (group: GroupDocument): Promise<boolean> {
+  const user = this as UserDocument
+
+  if (user.groups?.includes(group.id)) {
+    return false
+  }
+
+  user.groups.push(group.id)
+  group.members.push(user.id)
+  await user.save()
+  await group.save()
+  return true  
+}
 
 const UserModel = mongoose.model<UserDocument>("User", userSchema);
 

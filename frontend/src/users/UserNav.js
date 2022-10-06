@@ -6,12 +6,6 @@ import { useHistory } from "react-router-dom";
 import serverRequest from "../api/backServer";
 import { CurrentUser } from "../contexts/CurrentUser";
 
-const user = {
-  name: "Tom Cook",
-  email: "tom@example.com",
-  imageUrl:
-    "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-};
 const navigation = [
   { name: "Dashboard", href: "/dashboard", current: true },
   { name: "Explore", href: "/explore", current: false },
@@ -29,6 +23,24 @@ function classNames(...classes) {
 export default function UserNav() {
   const { initialState, currentUser, setCurrentUser } = useContext(CurrentUser);
   const history = useHistory();
+
+  let user
+  if (currentUser.firstName === "") {
+    user = {
+      name: "Tom Cook",
+      email: "tom@example.com",
+      imageUrl:
+        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+    }
+  } else {
+    user = {
+      name: `${currentUser.firstName} ${currentUser.lastName}`,
+      email: currentUser.email,
+      // switch this out when we get user profile pics working
+      imageUrl: 
+      "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+    }
+  }
 
   const [credentials, setCredentials] = useState({
     email: "",
