@@ -20,6 +20,9 @@ groupRouter.post('/new', createGroupHandler)
 // get one
 groupRouter.get('/:id', findGroupHandler)
 
+// add member to group
+groupRouter.post('/:groupId/users/:userId')
+
 // edit one
 groupRouter.put('/:id', editGroupHandler)
 

@@ -28,7 +28,7 @@ export async function createUserHandler(
 // find one
 export async function findUserHandler(req: Request, res: Response) {
   try {
-    const user = await findUser({ _id: req.params.id });
+    const user = await findUser(req.params.id);
 
     if (user === null) {
       return res.status(404).send({ message: "Error: Could not find user" });

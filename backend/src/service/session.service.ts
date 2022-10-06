@@ -41,7 +41,7 @@ export async function reIssueAccessToken({
 
   if (!session || !session.valid) return false;
 
-  const user = await findUser({ _id: session.user });
+  const user = await findUser(session.user);
 
   if (!user) return false;
 
