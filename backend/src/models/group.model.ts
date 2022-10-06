@@ -7,7 +7,8 @@ export interface GroupDocument extends mongoose.Document {
 	lists: Array<ListDocument["_id"]>;
 	members: Array<UserDocument["_id"]>;
 	admins: Array<UserDocument["_id"]>;
-  addMember(userDoc: UserDocument): boolean;
+  addMember(user: UserDocument): boolean;
+  addList(list: ListDocument): boolean
 }
 
 const groupSchema = new mongoose.Schema<GroupDocument>({
@@ -35,15 +36,31 @@ const groupSchema = new mongoose.Schema<GroupDocument>({
   ],
 });
 
-groupSchema.methods.addMember = function (userDoc: UserDocument): boolean {
+groupSchema.methods.addMember = function (user: UserDocument): boolean {
 	const group = this as GroupDocument
 
-  if (group.members.includes(userDoc.id)) {
+  if (group.members.includes(user.id)) {
     return false
   }
 
-	group.members.push(userDoc.id)
-  userDoc.groups?.push(group.id)
+	group.members.push(user.id)
+  user.groups?.push(group.id)
+  group.save()
+  user.save()
+  return true
+}
+
+groupSchema.methods.addList = function (list: ListDocument): boolean {
+  const group = this as GroupDocument
+
+  if (group.lists.includes(list.id)) {
+    return false
+  }
+
+  group.lists.push(list.id)
+  list.group = group.id
+  group.save()
+  list.save()
   return true
 }
 
