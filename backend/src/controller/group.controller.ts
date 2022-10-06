@@ -1,57 +1,11 @@
 import { Request, Response } from "express"
 import { createGroup, deleteGroup, editGroup, findAllGroups, findGroup } from "../service/group.service";
+import { findList } from "../service/list.service";
+import { findUser } from "../service/user.service";
 import log from "../utils/logger";
 import { groupSeedData } from "../utils/seedData";
 
-export async function createGroupHandler(req: Request, res: Response) {
-	try {
-		const newGroup = await createGroup(req.body)
-		return res.send(newGroup)
-	}
-	catch (error: any) {
-		log.error(error)
-		return res.status(409).send(error.message)
-	}
-}
-
-export async function findGroupHandler(req: Request, res: Response) {
-	try {
-		const group = await findGroup(req.params.id)
-		if (group === null) {
-			return res.status(404).send({ message: "Error: Could not find group"})
-		}
-		return res.status(200).send(group)
-	} catch (error: any) {
-		log.error(error)
-		return res.status(404).send(error.message)
-	}
-}
-
-export async function editGroupHandler(req: Request, res: Response) {
-	try {
-		const updatedGroup = await editGroup(req.params.id, req.body)
-		return res.status(200).send(updatedGroup)
-	} catch (error: any) {
-		log.error(error)
-		return res.status(400).send(error.message)
-	}
-}
-
-export async function deleteGroupHandler(req: Request, res: Response) {
-	try {
-		const success = await deleteGroup(req.params.id)
-		if (success) {
-			return res.status(200).send({ message: "Successfully deleted group", success: true })
-		} else {
-			return res.status(400).send({ message: "Error deleting group", success: false})
-		}
-	} catch (error: any) {
-		log.error(error)
-		return res.status(400).send(error.message)
-	}
-}
-
-
+// get all
 export async function findAllGroupsHandler(req: Request, res: Response) {
 	const groups = await findAllGroups()
 
@@ -75,4 +29,102 @@ export async function seedGroupsHandler(req: Request, res: Response) {
 		message: 'Seeded data',
 		results: results
 	})
+}
+
+// new
+export async function createGroupHandler(req: Request, res: Response) {
+	try {
+		const newGroup = await createGroup(req.body)
+		return res.send(newGroup)
+	}
+	catch (error: any) {
+		log.error(error)
+		return res.status(409).send(error.message)
+	}
+}
+
+// get one
+export async function findGroupHandler(req: Request, res: Response) {
+	try {
+		const group = await findGroup(req.params.id)
+		if (group === null) {
+			return res.status(404).send({ message: "Error: Could not find group"})
+		}
+		return res.status(200).send(group)
+	} catch (error: any) {
+		log.error(error)
+		return res.status(404).send(error.message)
+	}
+}
+
+// edit one
+export async function editGroupHandler(req: Request, res: Response) {
+	try {
+		const updatedGroup = await editGroup(req.params.id, req.body)
+		return res.status(200).send(updatedGroup)
+	} catch (error: any) {
+		log.error(error)
+		return res.status(400).send(error.message)
+	}
+}
+
+// delete one
+export async function deleteGroupHandler(req: Request, res: Response) {
+	try {
+		const success = await deleteGroup(req.params.id)
+		if (success) {
+			return res.status(200).send({ message: "Successfully deleted group", success: true })
+		} else {
+			return res.status(400).send({ message: "Error deleting group", success: false})
+		}
+	} catch (error: any) {
+		log.error(error)
+		return res.status(400).send(error.message)
+	}
+}
+
+// add member to group
+export async function addMemberHandler(req: Request, res: Response) {
+	try {
+		// get group
+		const group = await findGroup(req.params.groupId)
+		if (group === null) {
+			return res.status(404).send({ message: "Error: Could not find group"})
+		}
+
+		// get user
+		const user = await findUser(req.params.userId)
+		if (user === null) {
+			return res.status(404).send({ message: "Error: Could not find user"})
+		}
+
+		group.addMember(user)
+		return res.send(group)
+	} catch (error: any) {
+		log.error(error)
+		return res.status(400).send(error.message)
+	}
+}
+
+// add list to group
+export async function addListHandler(req: Request, res: Response) {
+	try {
+		// get group
+		const group = await findGroup(req.params.groupId)
+		if (group === null) {
+			return res.status(404).send({ message: "Error: Could not find group"})
+		}
+
+		// get list
+		const list = await findList(req.params.listId)
+		if (list === null) {
+			return res.status(404).send({ message: "Error: Could not find list"})
+		}
+
+		group.addList(list)
+		return res.send(group)
+	} catch (error: any) {
+		log.error(error)
+		return res.status(400).send(error.message)
+	}
 }
