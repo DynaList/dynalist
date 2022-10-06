@@ -3,6 +3,7 @@ import { Router, Request, Response } from "express";
 import validate from "../middleware/validateResource";
 import { createUserSchema } from "../schema/user.schema";
 import {
+  addGroupHandler,
   createUserHandler,
   deleteUserHandler,
   editUserHandler,
@@ -39,5 +40,8 @@ userRouter.put('/:id', editUserHandler)
 
 // delete one
 userRouter.delete('/:id', deleteUserHandler)
+
+// add group to user
+userRouter.put('/:userId/groups/:groupId', addGroupHandler)
 
 export default userRouter;
