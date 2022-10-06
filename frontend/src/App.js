@@ -8,6 +8,7 @@ import Error404 from './components/Error404'
 import Footer from './components/Footer';
 import UserDashboard from './users/UserDashboard';
 import NewGroup from './users/newGroup';
+import UserGroupDetails from './users/UserGroupDetails';
 
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
             <Route exact path="/dashboard" component={UserDashboard} />
             <Route exact path="/newGroup" component={NewGroup} />
             {/* <Route exact path="/groups" component={UserGroups} /> */}
-            {/* <Route exact path="/groups/:groupId" component={UserGroupDetails} /> */}
+            <Route exact path="/groups/:groupId" component={UserGroupDetails} />
             {/* <Route exact path="/lists" component={UserLists} /> */}
             {/* <Route exact path="/lists/:listId" component={UserListDetails} /> */}
             
