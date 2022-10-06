@@ -5,10 +5,56 @@ DynaList is an app designed to easily share lists with your family and friends. 
 
 [Visit DynaList](https://dynalist-frontend.herokuapp.com/)
 
+<!-- ![Screenshot of DynaList's landing page](./images/dynalist-small.png) -->
 
+## Technologies Used
 
-![Screenshot of DynaList's landing page](./images/dynalist-small.png)
+DynaList is a Node.js app built using React, Express, and MongoDB. The backend was developed in TypeScript, and the frontend was styled with Tailwind.
 
 ## How to Use
 
 You can visit DynaList online at https://dynalist-frontend.herokuapp.com/, or you can follow these steps to run it locally.
+
+1.	Clone the repo by running this command in your terminal:
+
+	```
+	git clone https://github.com/DynaList/dynalist.git
+	```
+	This will create a new local repository on your computer.
+
+2. Move into the backend folder and run `npm install` to install the backend dependencies.
+	
+3. Inside the backend folder, create a .env file with these contents:
+	```
+	PORT=3001
+	MONGO_URI=mongodb://localhost:27017/dynalist
+	ACCESS_TOKEN_TTL=15m
+	REFRESH_TOKEN_TTL=1y
+	```
+	
+4. Run the following command to start the backend server:
+	```
+	npm run dev
+	```
+	If successful, you should see something like the following:
+
+	![Screenshot of the terminal, which says "INFO: App running at http://localhost:3001" and "INFO: Dababase connected"](./images/backend-console.png)
+		
+5. In a new terminal, move into the frontend folder and run `npm install` to install the frontend dependencies.
+
+6. Inside the frontend folder, create a .env file with these contents:
+	```
+	REACT_APP_SERVER_URL=http://localhost:3001/
+	```
+
+7. Run the following command to start the frontend server:
+	```
+	npm start
+	```
+	If successful, you should see something like the following:
+
+	![Screenshot of the terminal, which says "Compiled successfully! You can now view frontend-final-project in the browser."](./images/frontend-console.png)
+
+8. You should now be able to go to http://localhost:3000/ in your browser and see the DynaList home page.
+
+## Future Plans
