@@ -1,4 +1,4 @@
-import { object, string, TypeOf } from "zod";
+import { array, object, string, TypeOf } from "zod";
 
 export const createUserSchema = object({
   body: object({
@@ -16,6 +16,7 @@ export const createUserSchema = object({
     city: string(),
     state: string(),
     zip: string(),
+    groups: array(string())
   }),
   // .refine((data) => data.password === data.passwordConfirmation, {
   //   message: "Passwords do not match",

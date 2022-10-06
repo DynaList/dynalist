@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { CreateUserInput } from "../schema/user.schema";
+import { findGroup } from "../service/group.service";
 import {
   createUser,
   deleteUser,
@@ -111,4 +112,27 @@ export async function seedUsersHandler(req: Request, res: Response) {
     message: "Seeded data",
     results: results,
   });
+}
+
+// add group to user
+export async function addGroupHandler(req: Request, res: Response) {
+	try {
+		// get user
+		const user = await findUser(req.params.userId)
+		if (user === null) {
+			return res.status(404).send({ message: "Error: Could not find user"})
+		}
+
+		// get group
+		const group = await findGroup(req.params.groupId)
+		if (group === null) {
+			return res.status(404).send({ message: "Error: Could not find group"})
+		}
+
+		user.addGroup(group)
+		return res.send(user)
+	} catch (error: any) {
+		log.error(error)
+		return res.status(400).send(error.message)
+	}
 }

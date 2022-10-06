@@ -4,7 +4,8 @@ import UserModel, { UserDocument } from "../models/user.model";
 
 // new user
 export async function createUser(
-  input: DocumentDefinition<Omit<UserDocument, "comparePassword">>
+  // this is a mess, I'll refactor it later
+  input: DocumentDefinition<Omit<Omit<Omit<UserDocument, "groups">, "addGroup">, "comparePassword">>
 ) {
   try {
     const newUser = await UserModel.create(input);
