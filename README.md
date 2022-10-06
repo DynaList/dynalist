@@ -1,71 +1,103 @@
-# Getting Started with Create React App
+# DynaList
+Created by [Alissa Makligh](https://www.linkedin.com/in/alissa-makligh-820196127/), [Caroline Konrad](https://www.linkedin.com/in/caroline-konrad-b01576191/), [Enrique Angulo](https://www.linkedin.com/in/enrique-angulo/), and [Jack Wright](https://www.linkedin.com/in/jack-steven-wright/).
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+DynaList is an app designed to easily share lists with your family and friends. Create groups, add members, create lists, and add items that you can see from anywhere.
 
-## Available Scripts
+[Visit DynaList](https://dynalist-frontend.herokuapp.com/)
 
-In the project directory, you can run:
+<!-- ![Screenshot of DynaList's landing page](./images/dynalist-small.png) -->
 
-### `npm start`
+## Technologies Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+DynaList is a Node.js app built using React, Express, and MongoDB. The backend was developed in TypeScript, and the frontend was styled with Tailwind.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Full dependencies:
 
-### `npm test`
+<details>
+<summary>Frontend</summary>
+ 
+ - axios
+ - react
+ - react-dom
+ - react-redux
+ - react-router
+ - react-router-dom
+ - react-scripts
+ - redux
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+</details>
 
-### `npm run build`
+<details>
+<summary>Backend</summary>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+ - bcrypt
+ - cors
+ - dayjs
+ - dotenv
+ - express
+ - jsonwebtoken
+ - lodash
+ - mongoose
+ - nanoid
+ - pino
+ - pino-pretty
+ - zod
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+</details>
+<br>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## How To Use
 
-### `npm run eject`
+You can visit DynaList online at https://dynalist-frontend.herokuapp.com/, or you can follow these steps to run it locally.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1.	Clone the repo by running this command in your terminal:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+	```
+	git clone https://github.com/DynaList/dynalist.git
+	```
+	This will create a new local repository on your computer.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+2. Move into the backend folder and run `npm install` to install the backend dependencies.
+	
+3. Inside the backend folder, create a .env file with these contents:
+	```
+	PORT=3001
+	MONGO_URI=mongodb://localhost:27017/dynalist
+	ACCESS_TOKEN_TTL=15m
+	REFRESH_TOKEN_TTL=1y
+	```
+	
+4. Run the following command to start the backend server:
+	```
+	npm run dev
+	```
+	If successful, you should see something like the following:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+	![Screenshot of the terminal, which says "INFO: App running at http://localhost:3001" and "INFO: Dababase connected"](./images/backend-console.png)
+		
+5. In a new terminal, move into the frontend folder and run `npm install` to install the frontend dependencies.
 
-## Learn More
+6. Inside the frontend folder, create a .env file with these contents:
+	```
+	REACT_APP_SERVER_URL=http://localhost:3001/
+	```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+7. Run the following command to start the frontend server:
+	```
+	npm start
+	```
+	If successful, you should see something like the following:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+	![Screenshot of the terminal, which says "Compiled successfully! You can now view frontend-final-project in the browser."](./images/frontend-console.png)
 
-### Code Splitting
+8. You should now be able to visit http://localhost:3000/ in your browser and see the DynaList home page.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Future Plans
 
-### Analyzing the Bundle Size
+DynaList is still a work in progress. There are a lot of bugs left to iron out, but there are also some features that we didn't have time to implement in the time we had:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# Final-Project
+- Add user profile page
+- Add notification system (so users can see when they've been added to a group)
+- Deploy to AWS
+- Better error messages for the user
+- Add a chat/comment function within groups to aid with communication
