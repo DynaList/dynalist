@@ -26,7 +26,7 @@ export default function UserGroupDetails() {
     }
 
     async function deleteGroup() {
-        await fetch(`http://________/places/${group.groupId}`, {
+        await fetch(`http://________/groups/${group.groupId}`, {
             method: 'DELETE'
         })
         history.push('/groups')
