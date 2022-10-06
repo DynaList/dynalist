@@ -12,6 +12,7 @@ export function signJwt(object: Object, options?: jwt.SignOptions | undefined) {
 export function verifyJwt(token: string) {
   try {
     const decoded = jwt.verify(token, PUBLIC_KEY);
+    console.log({ "Decode from verifyJwt": decoded });
 
     return { valid: true, expired: false, decoded };
   } catch (e: any) {

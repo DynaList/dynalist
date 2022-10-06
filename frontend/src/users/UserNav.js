@@ -27,7 +27,7 @@ function classNames(...classes) {
 }
 
 export default function UserNav() {
-  const { initialState, setCurrentUser } = useContext(CurrentUser);
+  const { initialState, currentUser, setCurrentUser } = useContext(CurrentUser);
   const history = useHistory();
 
   const [credentials, setCredentials] = useState({
@@ -38,11 +38,15 @@ export default function UserNav() {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    const response = await serverRequest.delete("api/sessions");
-    console.log(response);
+    // if (!localStorage.getItem("accessToken")) return;
+
+    await serverRequest.delete("api/sessions");
+
+    localStorage.setItem("accessToken", null);
+    localStorage.setItem("refreshToken", null);
 
     setCurrentUser({ ...initialState });
-    console.log(CurrentUser);
+    console.log(currentUser);
 
     history.push("/");
   }

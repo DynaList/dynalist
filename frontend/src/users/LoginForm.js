@@ -1,11 +1,9 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 import serverRequest from "../api/backServer";
-import { CurrentUser } from "../contexts/CurrentUser";
 
 export default function LoginForm() {
-  const { currentUser, setCurrentUser } = useContext(CurrentUser);
   const history = useHistory();
 
   const [credentials, setCredentials] = useState({
@@ -17,6 +15,7 @@ export default function LoginForm() {
 
   async function handleSubmit(e) {
     e.preventDefault();
+
     //fetch refering to backend user auth file- adjust when file created.
     const response = await serverRequest.post("api/sessions", {
       ...credentials,
@@ -25,14 +24,6 @@ export default function LoginForm() {
     if (response.status === 200) {
       localStorage.setItem("accessToken", response.data.accessToken);
       localStorage.setItem("refreshToken", response.data.refreshToken);
-
-      if (currentUser.firstName === "") {
-        const loggedUser = await serverRequest.get("api/sessions");
-
-        setCurrentUser({ ...loggedUser.data });
-
-        console.log(currentUser);
-      }
 
       history.push(`/dashboard`);
     } else {

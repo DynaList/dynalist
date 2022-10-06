@@ -7,6 +7,7 @@ import { findUser } from "./user.service";
 
 export async function createSession(userId: string, userAgent: string) {
   const session = await SessionModel.create({ user: userId, userAgent });
+  console.log({ "Session created": session });
 
   return session.toJSON();
 }
@@ -15,7 +16,7 @@ export async function findSessions(query: FilterQuery<SessionDocument>) {
   return SessionModel.find(query)
     .populate({
       path: "user",
-      select: ["firstName", "lastName"],
+      select: ["firstName", "lastName", "zip"],
     })
     .lean();
 }
@@ -33,14 +34,22 @@ export async function reIssueAccessToken({
   refreshToken: string;
 }) {
   const { decoded } = verifyJwt(refreshToken);
+  console.log({ decoded: decoded });
 
   if (!decoded || !get(decoded, "session")) return false;
 
-  const session = await SessionModel.findById(get(decoded, "session"));
+  const [session] = await SessionModel.find({
+    $or: [
+      { _id: get(decoded, "session"), valid: true },
+      { user: get(decoded, "_id"), valid: true },
+    ],
+  });
+  console.log({ session: session });
 
   if (!session || !session.valid) return false;
 
   const user = await findUser({ _id: session.user });
+  console.log({ "User from reIssueAccessToken": user });
 
   if (!user) return false;
 

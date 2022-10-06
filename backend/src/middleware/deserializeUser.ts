@@ -14,12 +14,15 @@ const deserializeUser = async (
     ""
   );
 
+  console.log("First check of accessToken: ", accessToken);
+
   if (!accessToken) return next();
 
   const { decoded, expired } = verifyJwt(accessToken);
 
-  if (decoded) {
+  if (!expired) {
     res.locals.user = decoded;
+    console.log({ validToken: decoded });
     return next();
   }
 
@@ -27,13 +30,16 @@ const deserializeUser = async (
 
   if (expired && refreshToken) {
     const newAccessToken = await reIssueAccessToken({ refreshToken });
+    console.log({ "Generate newAccessToken": newAccessToken });
 
     if (newAccessToken) {
       res.setHeader("Authorization", `Bearer ${newAccessToken}`);
+      console.log("Assign newAccessToken");
 
-      const result = verifyJwt(newAccessToken);
+      const result = verifyJwt(newAccessToken as string);
 
       res.locals.user = result.decoded;
+      console.log({ "From newAccessToken": res.locals.user._doc });
     }
 
     return next();

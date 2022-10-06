@@ -17,7 +17,7 @@ export async function createUser(
 // find one
 export async function findUser(query: FilterQuery<UserDocument>) {
   try {
-    const user = await UserModel.find(query).exec();
+    const [user] = await UserModel.find(query).exec();
 
     if (user === null) {
       throw new Error("Could not find user");
