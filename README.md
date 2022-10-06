@@ -11,7 +11,42 @@ DynaList is an app designed to easily share lists with your family and friends. 
 
 DynaList is a Node.js app built using React, Express, and MongoDB. The backend was developed in TypeScript, and the frontend was styled with Tailwind.
 
-## How to Use
+Full dependencies:
+
+<details>
+<summary>Frontend</summary>
+ 
+ - axios
+ - react
+ - react-dom
+ - react-redux
+ - react-router
+ - react-router-dom
+ - react-scripts
+ - redux
+
+</details>
+
+<details>
+<summary>Backend</summary>
+
+ - bcrypt
+ - cors
+ - dayjs
+ - dotenv
+ - express
+ - jsonwebtoken
+ - lodash
+ - mongoose
+ - nanoid
+ - pino
+ - pino-pretty
+ - zod
+
+</details>
+<br>
+
+## How To Use
 
 You can visit DynaList online at https://dynalist-frontend.herokuapp.com/, or you can follow these steps to run it locally.
 
@@ -55,6 +90,14 @@ You can visit DynaList online at https://dynalist-frontend.herokuapp.com/, or yo
 
 	![Screenshot of the terminal, which says "Compiled successfully! You can now view frontend-final-project in the browser."](./images/frontend-console.png)
 
-8. You should now be able to go to http://localhost:3000/ in your browser and see the DynaList home page.
+8. You should now be able to visit http://localhost:3000/ in your browser and see the DynaList home page.
 
 ## Future Plans
+
+DynaList is still a work in progress. There are a lot of bugs left to iron out, but there are also some features that we didn't have time to implement in the time we had:
+
+- Add user profile page
+- Add notification system (so users can see when they've been added to a group)
+- Deploy to AWS
+- Better error messages for the user
+- Add a chat/comment function within groups to aid with communication
