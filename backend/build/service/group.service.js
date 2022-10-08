@@ -14,10 +14,27 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.findAllGroups = exports.deleteGroup = exports.editGroup = exports.findGroup = exports.createGroup = void 0;
 const group_model_1 = __importDefault(require("../models/group.model"));
+const user_service_1 = require("./user.service");
 function createGroup(input) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const newGroup = yield group_model_1.default.create(input);
+            console.log("pre-save");
+            for (let i = 0; i < newGroup.members.length; i++) {
+                const user = yield (0, user_service_1.findUser)(newGroup.members[i]);
+                console.log("The user groups: ", user.groups, " and the newGroup id: ", newGroup.id);
+                if (user.groups.includes(newGroup.id))
+                    continue;
+                // await editUser(newGroup.members[i], { groups: [...user.groups, newGroup.id] });
+                yield newGroup.addMember(user);
+            }
+            for (let i = 0; i < newGroup.admins.length; i++) {
+                const user = yield (0, user_service_1.findUser)(newGroup.admins[i]);
+                if (user.groups.includes(newGroup.id))
+                    continue;
+                // await editUser(newGroup.admins[i], { groups: [...user.groups, newGroup.id] });
+                yield newGroup.addMember(user);
+            }
             return newGroup.toJSON();
         }
         catch (error) {
@@ -75,16 +92,16 @@ function findAllGroups() {
     return __awaiter(this, void 0, void 0, function* () {
         return group_model_1.default.find()
             .populate({
-            path: 'lists',
-            select: 'name'
+            path: "lists",
+            select: "name",
         })
             .populate({
-            path: 'members',
-            select: 'name'
+            path: "members",
+            select: "name",
         })
             .populate({
-            path: 'admins',
-            select: 'name'
+            path: "admins",
+            select: "name",
         });
     });
 }
