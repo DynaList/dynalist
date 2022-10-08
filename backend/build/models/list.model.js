@@ -27,17 +27,19 @@ const mongoose_1 = __importStar(require("mongoose"));
 const listSchema = new mongoose_1.default.Schema({
     name: {
         type: String,
-        require: true
+        require: true,
     },
     group: {
         type: mongoose_1.Schema.Types.ObjectId,
-        ref: 'Group'
+        ref: "Group",
     },
-    items: [{
+    items: [
+        {
             type: mongoose_1.Schema.Types.ObjectId,
-            ref: 'Item'
-        }]
+            ref: "Item",
+        },
+    ],
 });
-const ListModel = mongoose_1.default.model('List', listSchema);
+const ListModel = mongoose_1.default.model("List", listSchema);
 exports.default = ListModel;
 //# sourceMappingURL=list.model.js.map
