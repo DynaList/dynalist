@@ -75,7 +75,7 @@ export default function UserDashboard() {
   return (
     <div className="min-h-full">
       <UserNav />
-      <UserBanner />
+      <UserBanner title="Dashboard"/>
       <main>
         <UserTabs currentUser={currentUser} />
       </main>
