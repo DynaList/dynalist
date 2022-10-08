@@ -49,10 +49,10 @@ export default function UserTabs() {
     ],
   }
 
-  const newObject = [
-    { id: 1, name: "DynoPack"},
-    { id: 2, name: "DynoList"}
-  ];
+  // const newObject = [
+  //   { id: 1, name: "DynoPack"},
+  //   { id: 2, name: "DynoList"}
+  // ];
 
   return (
     <div>
@@ -129,7 +129,7 @@ export default function UserTabs() {
                         </div>
                         
                         <a
-                          href="#"
+                          href={`/groups/${post.id}`}
                           className={classNames(
                             "absolute inset-0 rounded-md",
                             "ring-blue-400 focus:z-10 focus:outline-none focus:ring-2"
