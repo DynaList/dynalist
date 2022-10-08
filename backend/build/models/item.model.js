@@ -7,20 +7,20 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const itemSchema = new mongoose_1.default.Schema({
     name: {
         type: String,
-        require: true
+        require: true,
     },
     price: {
-        type: Number
+        type: Number,
     },
     link: {
-        type: String
+        type: String,
     },
     inStock: {
-        type: Boolean
+        type: Boolean,
     },
     image: {
-        type: String
-    }
+        type: String,
+    },
 });
 const ItemModel = mongoose_1.default.model("Item", itemSchema);
 exports.default = ItemModel;
