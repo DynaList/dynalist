@@ -19,13 +19,13 @@ function NewGroup() {
 
   function handleAddMember() {
     const values = [...members];
-    values.push({ value: null });
+    values.push([{ value: null }]);
     setMembers(values);
   }
 
   function handleAddAdmin() {
     const values = [...admins];
-    values.push({ value: null });
+    values.push([{ value: null }]);
     setAdmins(values);
   }
 
@@ -97,7 +97,6 @@ function NewGroup() {
                               return (
                                 <div key={`${member}-${idx}`}>
                                   <input
-                                    required
                                     value={group.members}
                                     onChange={(e) =>
                                       setGroup({
@@ -131,7 +130,6 @@ function NewGroup() {
                               return (
                                 <div key={`${admin}-${idx}`}>
                                   <input
-                                    required
                                     value={group.admins}
                                     onChange={(e) =>
                                       setGroup({
