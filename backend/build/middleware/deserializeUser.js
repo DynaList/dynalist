@@ -14,25 +14,20 @@ const jwt_utils_1 = require("../utils/jwt.utils");
 const session_service_1 = require("../service/session.service");
 const deserializeUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const accessToken = (0, lodash_1.get)(req.headers, "authorization", "").replace(/^Bearer\s/, "");
-    console.log("First check of accessToken: ", accessToken);
     if (!accessToken)
         return next();
     const { decoded, expired } = (0, jwt_utils_1.verifyJwt)(accessToken);
     if (!expired) {
         res.locals.user = decoded;
-        console.log({ validToken: decoded });
         return next();
     }
     const refreshToken = (0, lodash_1.get)(req, "headers.xrefresh");
     if (expired && refreshToken) {
         const newAccessToken = yield (0, session_service_1.reIssueAccessToken)({ refreshToken });
-        console.log({ "Generate newAccessToken": newAccessToken });
         if (newAccessToken) {
             res.setHeader("Authorization", `Bearer ${newAccessToken}`);
-            console.log("Assign newAccessToken");
             const result = (0, jwt_utils_1.verifyJwt)(newAccessToken);
             res.locals.user = result.decoded;
-            console.log({ "From newAccessToken": res.locals.user._doc });
         }
         return next();
     }
