@@ -13,11 +13,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const user_routes_1 = __importDefault(require("./user.routes"));
+const session_routes_1 = __importDefault(require("./session.routes"));
+const group_routes_1 = __importDefault(require("./group.routes"));
+const list_routes_1 = __importDefault(require("./list.routes"));
+const item_routes_1 = __importDefault(require("./item.routes"));
 function routes(app) {
     app.get("/api/test", (req, res) => __awaiter(this, void 0, void 0, function* () {
         res.status(200).send("Endpoint working");
     }));
-    app.use("/api/user", user_routes_1.default);
+    app.use("/api/users", user_routes_1.default);
+    app.use("/api/sessions", session_routes_1.default);
+    app.use("/api/groups", group_routes_1.default);
+    app.use("/api/lists", list_routes_1.default);
+    app.use("/api/items", item_routes_1.default);
 }
 exports.default = routes;
 //# sourceMappingURL=index.js.map
