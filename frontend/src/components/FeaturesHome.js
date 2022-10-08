@@ -46,13 +46,13 @@ function FeaturesHome() {
                             </div>
                         </div>
                     </div>
-                    <div className="group w-full flex flex-col rounded-lg leading-6font-medium py-5">
+                    <div className="hidden sm:block group w-full flex flex-col rounded-lg leading-6font-medium py-5">
                         <div className="mx-4">
                             <div className="mx-4">
                             </div>
                         </div>
                     </div>
-                    <div className="group w-full flex flex-col rounded-lg leading-6 font-medium py-5">
+                    <div className="hidden sm:block group w-full flex flex-col rounded-lg leading-6 font-medium py-5">
                         <div className="mx-4">
                             <div className="mx-4">
                             </div>
