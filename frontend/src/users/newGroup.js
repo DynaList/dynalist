@@ -1,16 +1,47 @@
-import { useState } from "react"
+import { useContext, useState, useEffect } from "react"
 import { useHistory } from "react-router-dom"
 import UserNav from "./UserNav"
 import UserBanner from "./UserBanner"
+import { CurrentUser } from "../contexts/CurrentUser"
+import serverRequest from "../api/backServer"
 
 function NewGroup() {
 
 	const history = useHistory()
+	
+	const {currentUser, setCurrentUser} = useContext(CurrentUser)
 
+	useEffect(() => {
+		console.log("Before fetchSession");
+	
+		const fetchSession = async () => {
+		  console.log("Try");
+	
+		  try {
+			console.log("Before API call");
+	
+			const requestUser = await serverRequest.get("api/sessions");
+			console.log(requestUser);
+	
+			setCurrentUser({ ...currentUser, ...requestUser.data.user });
+		  } catch (error) {
+			if (error.message !== "Request failed with status code 403") {
+			  console.log(error);
+			}
+	
+			// logOut()
+		  }
+	
+		  console.log("Before 30");
+		};
+	
+		fetchSession();
+	  }, []);
+	
 	const [group, setGroup] = useState({
 		name: '',
-        members: '',
-        admins: '',
+        members: [],
+        admins: [],
 	})
 
     const [members, setMembers] = useState([{value: null}])
@@ -32,13 +63,21 @@ function NewGroup() {
 	async function handleSubmit(e) {
 		e.preventDefault()
 
-		await fetch(``, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify(group)
-		})
+		let sentGroup = {
+			name: group.name,
+			members: [currentUser._id],
+			admins: [currentUser._id]
+		}
+
+		console.log(sentGroup)
+		serverRequest.post("api/groups/new", JSON.stringify(sentGroup))
+		// await fetch(`${process.env.REACT_APP_SERVER_URL}api/groups/new`, {
+		// 	method: 'POST',
+		// 	headers: {
+		// 		'Content-Type': 'application/json'
+		// 	},
+		// 	body: JSON.stringify(sentGroup)
+		// })
 
 		history.push('/dashboard')
 	}
@@ -78,7 +117,7 @@ function NewGroup() {
 														/>
 													</div>
 
-													<div className="col-span-6 sm:col-span-2">
+													{/* <div className="col-span-6 sm:col-span-2">
 														<label htmlFor="members" className="block text-sm font-medium text-gray-700">Group Members: </label>                   
 														{members.map((member, idx) => {
 															return (
@@ -114,7 +153,7 @@ function NewGroup() {
 															)
 														})}
 														<button onClick={() => handleAddAdmin()} className="flex rounded-md border border-logo-purple b py-2 px-4 text-sm font-medium text-background-dark-color  hover:text-logo-purple focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Add another admin?</button>
-													</div>
+													</div> */}
 												</div>
 											</div>
 													
