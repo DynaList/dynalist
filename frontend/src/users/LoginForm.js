@@ -1,11 +1,10 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { CurrentUser } from "../contexts/CurrentUser";
+
+import serverRequest from "../api/backServer";
 
 export default function LoginForm() {
   const history = useHistory();
-
-  const { setCurrentUser } = useContext(CurrentUser);
 
   const [credentials, setCredentials] = useState({
     email: "",
@@ -16,31 +15,20 @@ export default function LoginForm() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    //fetch refering to backend user auth file- adjust when file created.
-    const response = await fetch(
-      `${process.env.REACT_APP_SERVER_URL}api/sessions`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer `,
-        },
-        body: JSON.stringify(credentials),
-      }
-    );
 
-    const data = await response.json();
-    // console.log(data);
+    //fetch refering to backend user auth file- adjust when file created.
+    const response = await serverRequest.post("api/sessions", {
+      ...credentials,
+    });
 
     if (response.status === 200) {
-      setCurrentUser(data.user);
-      localStorage.setItem('accessToken', data.accessToken);
-      localStorage.setItem('refreshToken', data.refreshToken);
+      localStorage.setItem("accessToken", response.data.accessToken);
+      localStorage.setItem("refreshToken", response.data.refreshToken);
+
       history.push(`/dashboard`);
     } else {
-      setErrorMessage(data.message);
+      setErrorMessage(response.mesaage);
     }
-
   }
 
   return (
@@ -63,7 +51,7 @@ export default function LoginForm() {
               Login to your account
             </h2>
           </div>
-          
+
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="-space-y-px rounded-md shadow-sm">

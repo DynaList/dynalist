@@ -11,9 +11,9 @@ require("dotenv").config();
 
 const app = express();
 
+app.use(deserializeUser);
 app.use(express.json());
 app.use(cors());
-app.use(deserializeUser);
 
 const port = process.env.PORT;
 app.listen(port, async () => {

@@ -7,6 +7,8 @@ export interface GroupDocument extends mongoose.Document {
 	lists: Array<ListDocument["_id"]>;
 	members: Array<UserDocument["_id"]>;
 	admins: Array<UserDocument["_id"]>;
+  addMember(user: UserDocument): Promise<boolean>;
+  addList(list: ListDocument): Promise<boolean>
 }
 
 const groupSchema = new mongoose.Schema<GroupDocument>({
@@ -34,10 +36,32 @@ const groupSchema = new mongoose.Schema<GroupDocument>({
   ],
 });
 
-groupSchema.methods.addMember = async function (userId: Types.ObjectId) {
+groupSchema.methods.addMember = async function (user: UserDocument): Promise<boolean> {
 	const group = this as GroupDocument
 
-	group.members.push(userId)
+  if (group.members.includes(user.id)) {
+    return false
+  }
+
+	group.members.push(user.id)
+  user.groups.push(group.id)
+  await group.save()
+  await user.save()
+  return true
+}
+
+groupSchema.methods.addList = async function (list: ListDocument): Promise<boolean> {
+  const group = this as GroupDocument
+
+  if (group.lists.includes(list.id)) {
+    return false
+  }
+
+  group.lists.push(list.id)
+  list.group = group.id
+  await group.save()
+  await list.save()
+  return true
 }
 
 const GroupModel = mongoose.model<GroupDocument>("Group", groupSchema);
