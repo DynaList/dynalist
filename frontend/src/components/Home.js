@@ -7,7 +7,9 @@ import FeaturesHome from "./FeaturesHome";
 function Home() {
   const history = useHistory();
 
-  if (localStorage.getItem("accessToken")) history.push(`/dashboard`);
+  const token = localStorage.getItem('accessToken')
+  // console.log('token: ', token)
+  if (token != 'null') history.push(`/dashboard`);
 
   return (
     <div>

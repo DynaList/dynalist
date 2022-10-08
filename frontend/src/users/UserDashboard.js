@@ -5,9 +5,12 @@ import UserNav from "./UserNav";
 import UserBanner from "./UserBanner";
 import serverRequest from "../api/backServer";
 import { CurrentUser } from "../contexts/CurrentUser";
+import { useHistory } from "react-router-dom";
 
 export default function UserDashboard() {
-  const { currentUser, setCurrentUser } = useContext(CurrentUser);
+  const { currentUser, initialState, setCurrentUser } = useContext(CurrentUser);
+
+  const history = useHistory()
 
   // useEffect(() => {
   //   const fetchSession = async () => {
@@ -27,6 +30,19 @@ export default function UserDashboard() {
   //   fetchSession();
   // }, []);
 
+  async function logOut() {
+    console.log('logOut()')
+    // await serverRequest.delete("api/sessions");
+
+    localStorage.setItem("accessToken", null);
+    localStorage.setItem("refreshToken", null);
+
+    setCurrentUser({ ...initialState });
+    console.log(currentUser);
+
+    history.push("/");
+  }
+
   useEffect(() => {
     console.log("Before fetchSession");
 
@@ -41,9 +57,11 @@ export default function UserDashboard() {
 
         setCurrentUser({ ...currentUser, ...requestUser.data.user });
       } catch (error) {
-        if (error.message === "Request failed with status code 403") return;
+        if (error.message !== "Request failed with status code 403") {
+          console.log(error);
+        }
 
-        console.log(error);
+        logOut()
       }
 
       console.log("Before 30");

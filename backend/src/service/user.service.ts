@@ -20,7 +20,10 @@ export async function createUser(
 // find one
 export async function findUser(id: string): Promise<UserDocument> {
   try {
-    const user = await UserModel.findById(id);
+    const user = await UserModel.findById(id)
+    .populate({
+      path: 'groups'
+    });
 
     if (user === null) {
       throw new Error("Could not find user");
