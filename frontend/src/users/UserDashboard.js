@@ -61,7 +61,7 @@ export default function UserDashboard() {
           console.log(error);
         }
 
-        logOut()
+        // logOut()
       }
 
       console.log("Before 30");
