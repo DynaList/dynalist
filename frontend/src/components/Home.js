@@ -9,7 +9,7 @@ function Home() {
 
   const token = localStorage.getItem('accessToken')
   // console.log('token: ', token)
-  if (token != 'null') history.push(`/dashboard`);
+  if (token !== null && token !== 'null') history.push(`/dashboard`);
 
   return (
     <div>
