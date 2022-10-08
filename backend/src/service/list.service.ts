@@ -1,6 +1,5 @@
 import { ObjectId } from "mongoose";
 import ListModel, { ListDocument } from "../models/list.model";
-import log from "../utils/logger";
 
 // new list
 export async function createList(input: ListDocument) {

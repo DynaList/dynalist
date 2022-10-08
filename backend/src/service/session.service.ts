@@ -7,7 +7,6 @@ import { findUser } from "./user.service";
 
 export async function createSession(userId: string, userAgent: string) {
   const session = await SessionModel.create({ user: userId, userAgent });
-  console.log({ "Session created": session });
 
   return session.toJSON();
 }
@@ -35,7 +34,6 @@ export async function reIssueAccessToken({
   refreshToken: string;
 }) {
   const { decoded } = verifyJwt(refreshToken);
-  console.log({ decoded: decoded });
 
   if (!decoded || !get(decoded, "session")) return false;
 
@@ -45,12 +43,10 @@ export async function reIssueAccessToken({
       { user: get(decoded, "_id"), valid: true },
     ],
   });
-  console.log({ session: session });
 
   if (!session || !session.valid) return false;
 
   const user = await findUser(session.user);
-  console.log({ "User from reIssueAccessToken": user });
 
   if (!user) return false;
 

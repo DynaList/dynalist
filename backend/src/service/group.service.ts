@@ -2,22 +2,14 @@ import { ObjectId } from "mongoose";
 
 import GroupModel, { GroupDocument } from "../models/group.model";
 import { findUser } from "./user.service";
-import log from "../utils/logger";
 
 export async function createGroup(input: GroupDocument) {
   try {
     const newGroup = await GroupModel.create(input);
-    console.log("pre-save");
 
     for (let i = 0; i < newGroup.members.length; i++) {
       const user = await findUser(newGroup.members[i]);
 
-      console.log(
-        "The user groups: ",
-        user.groups,
-        " and the newGroup id: ",
-        newGroup.id
-      );
       if (user.groups.includes(newGroup.id)) continue;
 
       // await editUser(newGroup.members[i], { groups: [...user.groups, newGroup.id] });

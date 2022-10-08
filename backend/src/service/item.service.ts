@@ -1,6 +1,5 @@
 import { ObjectId } from "mongoose";
 import ItemModel, { ItemDocument } from "../models/item.model";
-import log from "../utils/logger";
 
 export async function createItem(input: ItemDocument) {
 	try {
