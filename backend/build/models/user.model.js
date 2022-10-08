@@ -38,9 +38,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importStar(require("mongoose"));
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const userSchema = new mongoose_1.default.Schema({
-    name: {
+    firstName: {
         type: String,
         require: true,
+    },
+    lastName: {
+        type: String,
+        require: true
     },
     email: {
         type: String,
@@ -50,6 +54,21 @@ const userSchema = new mongoose_1.default.Schema({
     password: {
         type: String,
         require: true,
+    },
+    country: {
+        type: String
+    },
+    street: {
+        type: String
+    },
+    city: {
+        type: String
+    },
+    state: {
+        type: String
+    },
+    zip: {
+        type: String
     },
     groups: [
         {
@@ -72,6 +91,20 @@ userSchema.methods.comparePassword = function (givenPassword) {
     return __awaiter(this, void 0, void 0, function* () {
         const user = this;
         return bcrypt_1.default.compare(givenPassword, user.password).catch(() => false);
+    });
+};
+userSchema.methods.addGroup = function (group) {
+    var _a;
+    return __awaiter(this, void 0, void 0, function* () {
+        const user = this;
+        if ((_a = user.groups) === null || _a === void 0 ? void 0 : _a.includes(group.id)) {
+            return false;
+        }
+        user.groups.push(group.id);
+        group.members.push(user.id);
+        yield user.save();
+        yield group.save();
+        return true;
     });
 };
 const UserModel = mongoose_1.default.model("User", userSchema);
