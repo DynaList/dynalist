@@ -1,16 +1,26 @@
 import { createContext, useState } from "react";
 
+const initialState = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  country: "",
+  street: "",
+  city: "",
+  state: "",
+  zip: "",
+  groups: []
+};
+
 export const CurrentUser = createContext();
 
-function CurrentUserProvider({ children }){
+export default function CurrentUserProvider({ children }) {
+  const [currentUser, setCurrentUser] = useState(initialState);
 
-    const [currentUser, setCurrentUser] = useState(null)
-
-    return (
-        <CurrentUser.Provider value={{ currentUser, setCurrentUser }}>
-            {children}
-        </CurrentUser.Provider>
-    )
+  return (
+    <CurrentUser.Provider value={{ initialState, currentUser, setCurrentUser }}>
+      {children}
+    </CurrentUser.Provider>
+  );
 }
-
-export default CurrentUserProvider;

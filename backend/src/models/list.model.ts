@@ -1,19 +1,28 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
 
-const listSchema = new mongoose.Schema({
-	name: {
-		type: String,
-	},
-	group: {
-		type: Schema.Types.ObjectId,
-		ref: 'Group'
-	},
-	items: [{ 
-		type: Schema.Types.ObjectId,
-		ref: 'Item'
-	}]
-})
+export interface ListDocument extends mongoose.Document {
+  name: string;
+  group: Types.ObjectId;
+  items: Types.DocumentArray<Types.ObjectId>;
+}
 
-const ListModel = mongoose.model('List', listSchema)
+const listSchema = new mongoose.Schema<ListDocument>({
+  name: {
+    type: String,
+    require: true,
+  },
+  group: {
+    type: Schema.Types.ObjectId,
+    ref: "Group",
+  },
+  items: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Item",
+    },
+  ],
+});
 
-export default ListModel
+const ListModel = mongoose.model<ListDocument>("List", listSchema);
+
+export default ListModel;

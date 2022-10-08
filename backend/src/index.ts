@@ -1,24 +1,25 @@
-import express from 'express'
-import dotenv from 'dotenv'
-import mongoose from 'mongoose'
-import UserModel from './models/user.model'
+import express from "express";
+import dotenv from "dotenv";
+import cors from "cors";
 
-dotenv.config()
+import deserializeUser from "./middleware/deserializeUser";
+import log from "./utils/logger";
+import connectDB from "./utils/connect";
+import routes from "./routes";
 
-const app = express()
-const port = process.env.PORT
+require("dotenv").config();
 
-app.get('/', (req, res) => {
-  res.status(200).send("Hello world")
-})
+const app = express();
 
+app.use(deserializeUser);
+app.use(express.json());
+app.use(cors());
+
+const port = process.env.PORT;
 app.listen(port, async () => {
-  console.log(`Running server on port ${port}`)
+  log.info(`App running at http://localhost:${port}`);
 
-  let uri = process.env.MONGO_URI
-  if (typeof(uri) === undefined) {
-    console.error("No mongo uri was specified. Please add it to your local .env file under 'MONGO_URI'")
-  }
+  await connectDB();
 
-  await mongoose.connect(process.env.MONGO_URI!)
-})
+  routes(app);
+});
