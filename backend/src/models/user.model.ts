@@ -12,7 +12,8 @@ export interface UserDocument extends mongoose.Document {
   city: string;
   state: string;
   zip: string;
-  groups: Array<GroupDocument["_id"]>;
+  // groups: Array<GroupDocument["_id"]>;
+  groups: Array<string>;
   comparePassword(givenPassword: string): Promise<boolean>;
   addGroup(group: GroupDocument): Promise<boolean>;
 }
@@ -24,7 +25,7 @@ const userSchema = new mongoose.Schema<UserDocument>({
   },
   lastName: {
     type: String,
-    require: true
+    require: true,
   },
   email: {
     type: String,
@@ -36,19 +37,19 @@ const userSchema = new mongoose.Schema<UserDocument>({
     require: true,
   },
   country: {
-    type: String
+    type: String,
   },
   street: {
-    type: String
+    type: String,
   },
   city: {
-    type: String
+    type: String,
   },
   state: {
-    type: String
+    type: String,
   },
   zip: {
-    type: String
+    type: String,
   },
   groups: [
     {
@@ -78,19 +79,21 @@ userSchema.methods.comparePassword = async function (
   return bcrypt.compare(givenPassword, user.password).catch(() => false);
 };
 
-userSchema.methods.addGroup = async function (group: GroupDocument): Promise<boolean> {
-  const user = this as UserDocument
+userSchema.methods.addGroup = async function (
+  group: GroupDocument
+): Promise<boolean> {
+  const user = this as UserDocument;
 
   if (user.groups?.includes(group.id)) {
-    return false
+    return false;
   }
 
-  user.groups.push(group.id)
-  group.members.push(user.id)
-  await user.save()
-  await group.save()
-  return true  
-}
+  user.groups.push(group.id);
+  group.members.push(user.id);
+  await user.save();
+  await group.save();
+  return true;
+};
 
 const UserModel = mongoose.model<UserDocument>("User", userSchema);
 

@@ -30,18 +30,18 @@ export default function UserDashboard() {
   //   fetchSession();
   // }, []);
 
-  async function logOut() {
-    console.log("logOut()");
-    // await serverRequest.delete("api/sessions");
+  // async function logOut() {
+  //   console.log("logOut()");
+  //   // await serverRequest.delete("api/sessions");
 
-    localStorage.setItem("accessToken", null);
-    localStorage.setItem("refreshToken", null);
+  //   localStorage.setItem("accessToken", null);
+  //   localStorage.setItem("refreshToken", null);
 
-    setCurrentUser({ ...initialState });
-    console.log(currentUser);
+  //   setCurrentUser({ ...initialState });
+  //   console.log(currentUser);
 
-    history.push("/");
-  }
+  //   history.push("/");
+  // }
 
   useEffect(() => {
     console.log("Before fetchSession");
@@ -55,7 +55,7 @@ export default function UserDashboard() {
         const requestUser = await serverRequest.get("api/sessions");
         console.log(requestUser);
 
-        setCurrentUser({ ...currentUser, ...requestUser.data.user });
+        setCurrentUser(requestUser.data.user);
       } catch (error) {
         if (error.message !== "Request failed with status code 403") {
           console.log(error);
