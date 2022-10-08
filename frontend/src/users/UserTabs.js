@@ -10,12 +10,12 @@ function classNames(...classes) {
 
 export default function UserTabs() {
   const { currentUser } = useContext(CurrentUser);
-
+  console.log(currentUser)
   let dynopacks = [];
   if (currentUser.firstName === "") {
     // tell the user to log in or just send them to the home page
   } else {
-    dynopacks = currentUser.user.groups.map((group) => {
+    dynopacks = currentUser.groups.map((group) => {
       return {
         id: group._id,
         title: group.name,

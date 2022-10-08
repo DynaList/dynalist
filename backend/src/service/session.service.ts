@@ -16,6 +16,9 @@ export async function findSessions(query: FilterQuery<SessionDocument>) {
   return SessionModel.find(query).populate({
     path: "user",
     select: ["firstName", "lastName", "zip", "groups"],
+    populate: {
+      path: 'groups'
+    }
   });
 }
 
