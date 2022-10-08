@@ -44,7 +44,7 @@ const userSchema = new mongoose_1.default.Schema({
     },
     lastName: {
         type: String,
-        require: true
+        require: true,
     },
     email: {
         type: String,
@@ -56,19 +56,19 @@ const userSchema = new mongoose_1.default.Schema({
         require: true,
     },
     country: {
-        type: String
+        type: String,
     },
     street: {
-        type: String
+        type: String,
     },
     city: {
-        type: String
+        type: String,
     },
     state: {
-        type: String
+        type: String,
     },
     zip: {
-        type: String
+        type: String,
     },
     groups: [
         {

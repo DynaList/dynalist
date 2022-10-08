@@ -30,8 +30,14 @@ function createSessionHandler(req, res) {
 exports.createSessionHandler = createSessionHandler;
 function getSessionsHandler(req, res) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log("res.locals.user:", res.locals.user);
-        const userId = res.locals.user._id;
+        console.log("res.locals.user:", res.locals.user._doc);
+        let userId;
+        if ('_doc' in res.locals.user) {
+            userId = res.locals.user._doc._id;
+        }
+        else {
+            userId = res.locals.user._id;
+        }
         const sessions = yield (0, session_service_1.findSessions)({ user: userId, valid: true });
         console.log(sessions);
         return res.send(sessions[0]);

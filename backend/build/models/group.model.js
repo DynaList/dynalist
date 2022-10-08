@@ -1,27 +1,4 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    var desc = Object.getOwnPropertyDescriptor(m, k);
-    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
-      desc = { enumerable: true, get: function() { return m[k]; } };
-    }
-    Object.defineProperty(o, k2, desc);
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -31,8 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = __importStar(require("mongoose"));
+const mongoose_1 = __importDefault(require("mongoose"));
 const groupSchema = new mongoose_1.default.Schema({
     name: {
         type: String,
@@ -40,33 +20,65 @@ const groupSchema = new mongoose_1.default.Schema({
     },
     lists: [
         {
-            type: mongoose_1.Schema.Types.ObjectId,
+            type: String,
             ref: "List",
         },
     ],
     members: [
         {
-            type: mongoose_1.Schema.Types.ObjectId,
+            type: String,
             ref: "User",
         },
     ],
     admins: [
         {
-            type: mongoose_1.Schema.Types.ObjectId,
+            type: String,
             ref: "User",
         },
     ],
 });
+// groupSchema.pre("save", async function (next) {
+//   const group = this as GroupDocument;
+//   for (let i = 0; i < group.members.length; i++) {
+//     const user = await findUser(group.members[i]);
+//     console.log(
+//       "The user groups: ",
+//       user.groups,
+//       " and the group id: ",
+//       group.id
+//     );
+//     if (user.groups.includes(group.id)) continue;
+//     // await editUser(group.members[i], { groups: [...user.groups, group.id] });
+//     await group.addMember(user);
+//   }
+//   for (let i = 0; i < group.admins.length; i++) {
+//     const user = await findUser(group.admins[i]);
+//     if (user.groups.includes(group.id)) continue;
+//     // await editUser(group.admins[i], { groups: [...user.groups, group.id] });
+//     await group.addMember(user);
+//   }
+//   return next();
+// });
 groupSchema.methods.addMember = function (user) {
     return __awaiter(this, void 0, void 0, function* () {
+        // const group = this as GroupDocument;
+        // if (group.members.includes(user.id)) {
+        //   return false;
+        // }
+        // group.members.push(user.id);
+        // user.groups.push(group.id);
+        // await group.save();
+        // await user.save();
+        // return true;
         const group = this;
-        if (group.members.includes(user.id)) {
-            return false;
+        if (!group.members.includes(user.id)) {
+            group.members.push(user.id);
+            yield group.save();
         }
-        group.members.push(user.id);
-        user.groups.push(group.id);
-        yield group.save();
-        yield user.save();
+        if (!user.groups.includes(group.id)) {
+            user.groups.push(group.id);
+            yield user.save();
+        }
         return true;
     });
 };
