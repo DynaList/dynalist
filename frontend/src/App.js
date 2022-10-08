@@ -9,6 +9,8 @@ import Footer from './components/Footer';
 import UserDashboard from './users/UserDashboard';
 import NewGroup from './users/newGroup';
 import UserGroupDetails from './users/UserGroupDetails';
+import NewList from './users/NewList';
+import UserListDetails from './users/UserListDetails';
 
 
 function App() {
@@ -20,11 +22,11 @@ function App() {
             <Route exact path="/sign-up" component={SignUpForm} />
             <Route exact path="/login" component={LoginForm} />
             <Route exact path="/dashboard" component={UserDashboard} />
-            <Route exact path="/newGroup" component={NewGroup} />
+            <Route exact path="/new-group" component={NewGroup} />
             {/* <Route exact path="/groups" component={UserGroups} /> */}
             <Route exact path="/groups/:groupId" component={UserGroupDetails} />
-            {/* <Route exact path="/lists" component={UserLists} /> */}
-            {/* <Route exact path="/lists/:listId" component={UserListDetails} /> */}
+            <Route exact path="/new-list" component={NewList} />
+            <Route exact path="/lists/:listId" component={UserListDetails} />
             
             <Route path='*' component={Error404} />
           </Switch>

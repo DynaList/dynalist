@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { Tab } from "@headlessui/react";
 
 import NewList from "./NewList";
+import MyModal from './PopOutModal';
 import { CurrentUser } from "../contexts/CurrentUser";
 
 function classNames(...classes) {
@@ -46,9 +47,12 @@ export default function UserTabs() {
         userCount: 12,
       },
     ],
-  };
+  }
 
-  console.log('categories: ', categories)
+  const newObject = [
+    { id: 1, name: "DynoPack"},
+    { id: 2, name: "DynoList"}
+  ];
 
   return (
     <div>
@@ -107,7 +111,7 @@ export default function UserTabs() {
                             src="https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                             alt=""
                           />
-                          <img
+                           <img
                             className="inline-block h-6 w-6 rounded-full ring-2 ring-white"
                             src="https://images.unsplash.com/photo-1550525811-e5869dd03032?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                             alt=""
@@ -123,7 +127,7 @@ export default function UserTabs() {
                             alt=""
                           />
                         </div>
-
+                        
                         <a
                           href="#"
                           className={classNames(
@@ -131,25 +135,43 @@ export default function UserTabs() {
                             "ring-blue-400 focus:z-10 focus:outline-none focus:ring-2"
                           )}
                         />
+
                       </li>
                     ))}
-                    <li className="flex">
-                      <a
-                        href="/newgroup"
-                        className="hover:border-bright-purple hover:border-solid hover:text-bright-purple group w-full flex flex-col items-center justify-center rounded-md border-2 border-dashed border-slate-300 text-sm leading-6 text-slate-400 font-medium py-3"
-                      >
-                        <svg
-                          className="group-hover:text-bright-purple mb-1 text-slate-400"
-                          width="20"
-                          height="20"
-                          fill="currentColor"
-                          aria-hidden="true"
+                      <li className="flex">
+                        {/* {Object.values(newObject).map((obj, idx) => ( key={idx} {obj.name}) )} */}
+                        <a href="/new-list" className="hover:border-bright-purple hover:border-solid hover:text-bright-purple group w-full flex flex-col items-center justify-center rounded-md border-2 border-dashed border-slate-300 text-sm leading-6 text-slate-400 font-medium py-3">
+                          <svg 
+                            className="group-hover:text-bright-purple mb-1 text-slate-400" 
+                            width="20" 
+                            height="20" 
+                            fill="currentColor" 
+                            aria-hidden="true">
+                              <path 
+                                d="M10 5a1 1 0 0 1 1 1v3h3a1 1 0 1 1 0 2h-3v3a1 1 0 1 1-2 0v-3H6a1 1 0 1 1 0-2h3V6a1 1 0 0 1 1-1Z" 
+                              />
+                          </svg>
+                          New DynaList
+                          
+                        </a>
+                      </li>
+                    
+                      <li className="flex">
+                        <a
+                          href="/new-group"
+                          className="hover:border-bright-purple hover:border-solid hover:text-bright-purple group w-full flex flex-col items-center justify-center rounded-md border-2 border-dashed border-slate-300 text-sm leading-6 text-slate-400 font-medium py-3"
                         >
-                          <path d="M10 5a1 1 0 0 1 1 1v3h3a1 1 0 1 1 0 2h-3v3a1 1 0 1 1-2 0v-3H6a1 1 0 1 1 0-2h3V6a1 1 0 0 1 1-1Z" />
-                        </svg>
-                        New DynoPack
-                      </a>
-                    </li>
+                          <svg
+                            className="group-hover:text-bright-purple mb-1 text-slate-400"
+                            width="20"
+                            height="20"
+                            fill="currentColor"
+                            aria-hidden="true">
+                            <path d="M10 5a1 1 0 0 1 1 1v3h3a1 1 0 1 1 0 2h-3v3a1 1 0 1 1-2 0v-3H6a1 1 0 1 1 0-2h3V6a1 1 0 0 1 1-1Z" />
+                          </svg>
+                          New DynoPack
+                        </a>
+                      </li>
                   </ul>
                 </Tab.Panel>
               ))}
@@ -157,6 +179,7 @@ export default function UserTabs() {
           </div>
         </div>
       </Tab.Group>
+      
     </div>
   );
 }
