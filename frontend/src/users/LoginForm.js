@@ -15,7 +15,7 @@ export default function LoginForm() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-
+    console.log(credentials)
     //fetch refering to backend user auth file- adjust when file created.
     const response = await serverRequest.post("api/sessions", {
       ...credentials,
@@ -27,7 +27,7 @@ export default function LoginForm() {
 
       history.push(`/dashboard`);
     } else {
-      setErrorMessage(response.mesaage);
+      setErrorMessage(response.message);
     }
   }
 

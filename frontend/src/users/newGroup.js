@@ -19,13 +19,13 @@ function NewGroup() {
 
   function handleAddMember() {
     const values = [...members];
-    values.push({ value: null });
+    values.push([{ value: null }]);
     setMembers(values);
   }
 
   function handleAddAdmin() {
     const values = [...admins];
-    values.push({ value: null });
+    values.push([{ value: null }]);
     setAdmins(values);
   }
 
@@ -48,13 +48,7 @@ function NewGroup() {
   return (
     <div className="min-h-full">
       <UserNav />
-      <div>
-        <header className="bg-gradient-to-r from-[#667eea] to-[#764ba2] shadow">
-          <div className="mx-auto max-w-7xl py-6 px-4 sm:px-6 lg:px-8">
-            <h1 className="text-3xl font-bold tracking-tight">DynoPacks</h1>
-          </div>
-        </header>
-      </div>
+      <UserBanner title="New DynoPack"/>
       <main>
         <div className="w-full max-w-md px-2 mt-10 sm:px-0 mx-auto flex space-x-1 p-5"></div>
 
@@ -103,7 +97,6 @@ function NewGroup() {
                               return (
                                 <div key={`${member}-${idx}`}>
                                   <input
-                                    required
                                     value={group.members}
                                     onChange={(e) =>
                                       setGroup({
@@ -137,7 +130,6 @@ function NewGroup() {
                               return (
                                 <div key={`${admin}-${idx}`}>
                                   <input
-                                    required
                                     value={group.admins}
                                     onChange={(e) =>
                                       setGroup({
