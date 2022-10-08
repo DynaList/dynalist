@@ -58,7 +58,6 @@ export default function UserNav() {
     localStorage.setItem("refreshToken", null);
 
     setCurrentUser({ ...initialState });
-    console.log(currentUser);
 
     history.push("/");
   }

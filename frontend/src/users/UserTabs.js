@@ -27,8 +27,6 @@ export default function UserTabs() {
     });
   }
 
-  console.log("dynopacks: ", dynopacks)
-
   let categories = {
     DynoPacks: dynopacks,
     DynaLists: [
