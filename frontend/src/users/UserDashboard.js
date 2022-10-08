@@ -10,7 +10,7 @@ import { useHistory } from "react-router-dom";
 export default function UserDashboard() {
   const { currentUser, initialState, setCurrentUser } = useContext(CurrentUser);
 
-  const history = useHistory()
+  const history = useHistory();
 
   // useEffect(() => {
   //   const fetchSession = async () => {
@@ -31,7 +31,7 @@ export default function UserDashboard() {
   // }, []);
 
   async function logOut() {
-    console.log('logOut()')
+    console.log("logOut()");
     // await serverRequest.delete("api/sessions");
 
     localStorage.setItem("accessToken", null);
@@ -61,7 +61,7 @@ export default function UserDashboard() {
           console.log(error);
         }
 
-        logOut()
+        // logOut()
       }
 
       console.log("Before 30");
