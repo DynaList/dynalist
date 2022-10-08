@@ -33,7 +33,12 @@ export async function createSessionHandler(req: Request, res: Response) {
 
 export async function getSessionsHandler(req: Request, res: Response) {
   console.log("res.locals.user:", res.locals.user._doc);
-  const userId = res.locals.user._doc._id;
+  let userId;
+  if ('_doc' in res.locals.user) {
+    userId = res.locals.user._doc._id;
+  } else {
+    userId = res.locals.user._id;
+  }
   const sessions = await findSessions({ user: userId, valid: true });
 
   console.log(sessions);
