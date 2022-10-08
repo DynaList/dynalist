@@ -11,6 +11,7 @@ function classNames(...classes) {
 export default function UserTabs() {
   const { currentUser } = useContext(CurrentUser);
   let dynopacks = [];
+
   if (currentUser.firstName === "") {
     // tell the user to log in or just send them to the home page
   } else {
@@ -24,9 +25,10 @@ export default function UserTabs() {
       };
     });
   }
+
   console.log("dynopacks: ", dynopacks)
 
-  let [categories] = useState({
+  let categories = {
     DynoPacks: dynopacks,
     DynaLists: [
       {
@@ -44,7 +46,9 @@ export default function UserTabs() {
         userCount: 12,
       },
     ],
-  });
+  };
+
+  console.log('categories: ', categories)
 
   return (
     <div>

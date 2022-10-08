@@ -55,10 +55,6 @@ export default function UserDashboard() {
         const requestUser = await serverRequest.get("api/sessions");
         console.log(requestUser);
 
-        if (requestUser.data.user === initialState) {
-          console.log('LOGGED OUT')
-        }
-
         setCurrentUser({ ...currentUser, ...requestUser.data.user });
       } catch (error) {
         if (error.message !== "Request failed with status code 403") {
