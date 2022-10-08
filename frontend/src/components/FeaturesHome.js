@@ -37,7 +37,7 @@ function FeaturesHome() {
             </section> */}
             <section id="features-section" className="p-8">     
                 <h2 className=" text-4xl font-bold text-center text-background-dark-grey pb-6">Features</h2>           
-                <div className="hover:text-white-purple p-4 sm:px-8 sm:pt-6 sm:pb-8 lg:p-4 xl:px-8 xl:pt-6 xl:pb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 leading-6">
+                <div className=" -space-y-4 hover:text-white-purple p-4 sm:px-8 sm:pt-6 sm:pb-8 lg:p-4 xl:px-8 xl:pt-6 xl:pb-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-4 leading-6">
                     <div className="hover:bg-background-dark-grey group w-full flex flex-col rounded-lg leading-6 font-medium py-5">
                         <div className="mx-4">
                             <div className="mx-4">
@@ -46,13 +46,13 @@ function FeaturesHome() {
                             </div>
                         </div>
                     </div>
-                    <div className="group w-full flex flex-col rounded-lg leading-6font-medium py-5">
+                    <div className="hidden sm:block group w-full flex flex-col rounded-lg leading-6font-medium py-5">
                         <div className="mx-4">
                             <div className="mx-4">
                             </div>
                         </div>
                     </div>
-                    <div className="group w-full flex flex-col rounded-lg leading-6 font-medium py-5">
+                    <div className="hidden sm:block group w-full flex flex-col rounded-lg leading-6 font-medium py-5">
                         <div className="mx-4">
                             <div className="mx-4">
                             </div>
