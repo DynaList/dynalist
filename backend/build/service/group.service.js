@@ -19,10 +19,8 @@ function createGroup(input) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const newGroup = yield group_model_1.default.create(input);
-            console.log("pre-save");
             for (let i = 0; i < newGroup.members.length; i++) {
                 const user = yield (0, user_service_1.findUser)(newGroup.members[i]);
-                console.log("The user groups: ", user.groups, " and the newGroup id: ", newGroup.id);
                 if (user.groups.includes(newGroup.id))
                     continue;
                 // await editUser(newGroup.members[i], { groups: [...user.groups, newGroup.id] });

@@ -20,7 +20,6 @@ const user_service_1 = require("./user.service");
 function createSession(userId, userAgent) {
     return __awaiter(this, void 0, void 0, function* () {
         const session = yield session_model_1.default.create({ user: userId, userAgent });
-        console.log({ "Session created": session });
         return session.toJSON();
     });
 }
@@ -46,7 +45,6 @@ exports.updateSession = updateSession;
 function reIssueAccessToken({ refreshToken, }) {
     return __awaiter(this, void 0, void 0, function* () {
         const { decoded } = (0, jwt_utils_1.verifyJwt)(refreshToken);
-        console.log({ decoded: decoded });
         if (!decoded || !(0, lodash_1.get)(decoded, "session"))
             return false;
         const [session] = yield session_model_1.default.find({
@@ -55,11 +53,9 @@ function reIssueAccessToken({ refreshToken, }) {
                 { user: (0, lodash_1.get)(decoded, "_id"), valid: true },
             ],
         });
-        console.log({ session: session });
         if (!session || !session.valid)
             return false;
         const user = yield (0, user_service_1.findUser)(session.user);
-        console.log({ "User from reIssueAccessToken": user });
         if (!user)
             return false;
         const accessToken = (0, jwt_utils_1.signJwt)(Object.assign(Object.assign({}, user), { session: session._id }), { expiresIn: process.env.ACCESS_TOKEN_TTL } // 15 minutes
